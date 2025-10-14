@@ -43,7 +43,7 @@ namespace Application.DTO.Doctors
         /// <summary>
         /// Office identifier associated with the doctor(foreign key).
         /// </summary>
-        public int OficeId { get; set; }
+        public int OfficeId { get; set; }
 
         /// <summary>
         /// Year when doctor started his career.

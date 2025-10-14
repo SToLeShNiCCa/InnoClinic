@@ -32,6 +32,7 @@ namespace Presentation.Controllers
         public async Task<ActionResult> GetAll(PageInfo param,CancellationToken token)
         {
             var doctors = await _service.GetAllAsync(param,token);
+
             return doctors.ToActionResult();
         }
 
@@ -44,6 +45,7 @@ namespace Presentation.Controllers
         public async Task<ActionResult<ReadDoctorDTO>> GetByIdAsync(int id , CancellationToken token)
         {
             var doctor = await _service.GetByIdAsync(id, token);
+
             return doctor.ToActionResult();
         }
 
@@ -53,11 +55,11 @@ namespace Presentation.Controllers
         /// <param name="dto">Doctor's DTO</param>
         /// <returns>Proof that doctor was created(REST)</returns>
         [HttpPost]
-        public async Task<ActionResult<Doctor>> Create(CreateDoctorDTO dto, CancellationToken token)
+        public async Task<ActionResult<ReadDoctorDTO>> Create(CreateDoctorDTO dto, CancellationToken token)
         {
             var createdDoctor = await _service.CreateAsync(dto, token);
 
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = createdDoctor.Id }, createdDoctor);
+            return createdDoctor.ToActionResult();
         }
 
         /// <summary>
@@ -69,8 +71,9 @@ namespace Presentation.Controllers
         [HttpPut]
         public async Task<ActionResult> Update(UpdateDoctorDTO dto,CancellationToken token)
         {
-            await _service.UpdateAsync(dto,token);
-            return NoContent();
+            var updatedDoctor = await _service.UpdateAsync(dto,token);
+
+            return updatedDoctor.ToActionResult();
         }
 
         /// <summary>
