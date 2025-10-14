@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.DTO.Enums
 {
-    public enum ErrorType
+    public enum EVErrorType
     {
         None,
         Validation,

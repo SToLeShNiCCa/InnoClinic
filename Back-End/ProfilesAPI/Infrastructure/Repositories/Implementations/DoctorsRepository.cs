@@ -42,19 +42,17 @@ namespace Infrastructure.Repositories.Implementations
                 .Take(pageInfo.ItemsPerPage)
                 .ToListAsync(token);
 
-            var response = new PaginatedResult<Doctor>(
+            return new PaginatedResult<Doctor>(
                 doctors,
                 pageInfo.Page,
                 pageInfo.ItemsPerPage,
                 totalRecords
             );
-
-            return response;
         }
 
         public async Task<Doctor?> GetByIdAsync(int id, CancellationToken token)
         {
-            return await _context.Doctors.FindAsync(id,token);
+            return await _context.Doctors.FindAsync(id);
         }
 
         public async Task UpdateAsync(Doctor doctor, CancellationToken token)

@@ -1,4 +1,5 @@
 ﻿using Application.DTO.Doctors;
+using Application.DTO.Result;
 using Application.Services.Interfaces;
 using Domain.DBServices.Models;
 using Domain.DBServices.Models.PaginationModel;
@@ -28,10 +29,10 @@ namespace Presentation.Controllers
         /// </summary>
         /// <returns>Doctor's list</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ReadDoctorDTO>>> GetAll(PageInfo param,CancellationToken token)
+        public async Task<ActionResult> GetAll(PageInfo param,CancellationToken token)
         {
             var doctors = await _service.GetAllAsync(param,token);
-            return Ok(doctors);
+            return doctors.ToActionResult();
         }
 
         /// <summary>
@@ -42,7 +43,8 @@ namespace Presentation.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ReadDoctorDTO>> GetByIdAsync(int id , CancellationToken token)
         {
-            return await _service.GetByIdAsync(id, token);
+            var doctor = await _service.GetByIdAsync(id, token);
+            return doctor.ToActionResult();
         }
 
         /// <summary>

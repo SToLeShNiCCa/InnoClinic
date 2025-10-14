@@ -5,6 +5,7 @@ using AutoMapper;
 using Domain.DBServices.Models;
 using Domain.DBServices.Models.PaginationModel;
 using Infrastructure.Repositories.Interfaces;
+using System.Collections.Generic;
 
 namespace Application.Services.Implementations
 {
@@ -26,38 +27,45 @@ namespace Application.Services.Implementations
             return Result<ReadDoctorDTO>.SuccessResult(readDoctorDTO);
         }
 
-        public async Task DeleteAsync(int id, CancellationToken token)
+        public async Task<Result> DeleteAsync(int id, CancellationToken token)
         {
-            var doctor = await _repository.GetByIdAsync(id,token);
-            if (doctor == null) throw new KeyNotFoundException("Doctor not found");
+            var doctor = await _repository.GetByIdAsync(id, token);
+            if (doctor == null) return Result.NotFoundResult("Doctor is not found");
 
             await _repository.DeleteAsync(doctor, token);
             await _repository.SaveData(token);
+
+            return Result.SuccessResult();
         }
 
-        public async Task<IEnumerable<ReadDoctorDTO>> GetAllAsync(PageInfo pageInfo, CancellationToken token)
+        public async Task<Result<IReadOnlyCollection<ReadDoctorDTO>>> GetAllAsync(PageInfo pageInfo, CancellationToken token)
         {
             var doctors = await _repository.GetAllAsync(pageInfo, token);
+            var doctorCollection = _mapper.Map<IReadOnlyCollection<ReadDoctorDTO>>(doctors);
 
-            return _mapper.Map<IEnumerable<ReadDoctorDTO>>(doctors);
+            return Result<IReadOnlyCollection<ReadDoctorDTO>>.SuccessResult(doctorCollection);
         }
 
-        public async Task<ReadDoctorDTO> GetByIdAsync(int id, CancellationToken token)
+        public async Task<Result<ReadDoctorDTO>> GetByIdAsync(int id, CancellationToken token)
         {
             var doctor = await _repository.GetByIdAsync(id, token);
             if(doctor == null) throw new KeyNotFoundException("Doctor not found") ;
 
             var doctorDTO = _mapper.Map<ReadDoctorDTO>(doctor);
 
-            return doctorDTO;
+            return Result<ReadDoctorDTO>.SuccessResult(doctorDTO);
         }
 
-        public async Task UpdateAsync(UpdateDoctorDTO doctorDTO,CancellationToken token)
+        public async Task<Result<ReadDoctorDTO>> UpdateAsync(UpdateDoctorDTO doctorDTO,CancellationToken token)
         {
             var doctor = _mapper.Map<Doctor>(doctorDTO);
-            await _repository.UpdateAsync(doctor, token);
 
+            await _repository.UpdateAsync(doctor, token);
             await _repository.SaveData(token);
+
+            var readDoctorDTO = _mapper.Map<ReadDoctorDTO>(doctor);
+
+            return Result<ReadDoctorDTO>.SuccessResult(readDoctorDTO);
         }
     }
 }
