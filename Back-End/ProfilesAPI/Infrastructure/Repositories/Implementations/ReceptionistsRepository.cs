@@ -24,7 +24,7 @@ namespace Infrastructure.Repositories.Implementations
             _context.Remove(receptionist);
         }
 
-        public async Task<ActionResult<PaginatedResult<Receptionist>>> GetAllAsync(PageInfo param, CancellationToken token)
+        public async Task<PaginatedResult<Receptionist>> GetAllAsync(PageInfo param, CancellationToken token)
         {
             var query = _context.Receptionists
                 .AsQueryable()

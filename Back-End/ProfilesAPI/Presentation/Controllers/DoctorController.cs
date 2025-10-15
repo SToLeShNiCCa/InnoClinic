@@ -29,9 +29,9 @@ namespace Presentation.Controllers
         /// </summary>
         /// <returns>Doctor's list</returns>
         [HttpGet]
-        public async Task<ActionResult> GetAll(PageInfo param,CancellationToken token)
+        public async Task<ActionResult> GetAll([FromQuery]PageInfo pageInfo,CancellationToken token)
         {
-            var doctors = await _service.GetAllAsync(param,token);
+            var doctors = await _service.GetAllAsync(pageInfo,token);
 
             return doctors.ToActionResult();
         }

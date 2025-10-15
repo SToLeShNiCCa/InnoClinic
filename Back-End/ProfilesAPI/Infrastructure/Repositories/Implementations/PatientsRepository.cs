@@ -25,7 +25,7 @@ namespace Infrastructure.Repositories.Implementations
             _context.Remove(patient);
         }
 
-        public async Task<ActionResult<PaginatedResult<Patient>>> GetAllAsync(PageInfo param, CancellationToken token)
+        public async Task<PaginatedResult<Patient>> GetAllAsync(PageInfo param, CancellationToken token)
         {
             var query = _context.Patients
                 .AsQueryable()

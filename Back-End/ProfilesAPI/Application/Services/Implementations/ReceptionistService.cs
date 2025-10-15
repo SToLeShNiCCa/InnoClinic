@@ -44,7 +44,7 @@ namespace Application.Services.Implementations
         public async Task<Result<IReadOnlyCollection<ReadReceptionistDTO>>> GetAllAsync(PageInfo pageInfo, CancellationToken token)
         {
             var receptionists = await _repository.GetAllAsync(pageInfo, token);
-            var receptionistCollection = _mapper.Map<IReadOnlyCollection<ReadReceptionistDTO>>(receptionists);
+            var receptionistCollection = _mapper.Map<IReadOnlyCollection<ReadReceptionistDTO>>(receptionists.Data);
 
             return Result<IReadOnlyCollection<ReadReceptionistDTO>>.SuccessResult(receptionistCollection);
         }

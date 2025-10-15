@@ -15,7 +15,7 @@ namespace Infrastructure.Repositories.Implementations
         {
             _context = context;
         }
-        public async Task SaveData(CancellationToken token) 
+        public async Task SaveDataAsync(CancellationToken token) 
         {
             await _context.SaveChangesAsync(token);
         }
@@ -29,7 +29,7 @@ namespace Infrastructure.Repositories.Implementations
             _context.Remove(doctor);
         }
 
-        public async Task<ActionResult<PaginatedResult<Doctor>>> GetAllAsync(PageInfo pageInfo, CancellationToken token)
+        public async Task<PaginatedResult<Doctor>> GetAllAsync(PageInfo pageInfo, CancellationToken token)
         {
             var query = _context.Doctors
                 .AsQueryable()

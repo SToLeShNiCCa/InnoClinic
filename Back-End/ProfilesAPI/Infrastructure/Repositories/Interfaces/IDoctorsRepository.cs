@@ -11,11 +11,11 @@ namespace Infrastructure.Repositories.Interfaces
 {
     public interface IDoctorsRepository
     {
-        Task<ActionResult<PaginatedResult<Doctor>>> GetAllAsync(PageInfo param, CancellationToken token);
+        Task<PaginatedResult<Doctor>> GetAllAsync(PageInfo param, CancellationToken token);
         Task<Doctor?> GetByIdAsync(int id, CancellationToken token);
         Task CreateAsync(Doctor doctor, CancellationToken token);
         Task UpdateAsync(Doctor doctor, CancellationToken token);
         Task DeleteAsync(Doctor doctor, CancellationToken token);
-        Task SaveData(CancellationToken token);
+        Task SaveDataAsync(CancellationToken token);
     }
 }

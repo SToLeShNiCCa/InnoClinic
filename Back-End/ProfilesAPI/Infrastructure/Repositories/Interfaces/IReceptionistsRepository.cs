@@ -11,7 +11,7 @@ namespace Infrastructure.Repositories.Interfaces
 {
     public interface IReceptionistsRepository
     {
-        Task<ActionResult<PaginatedResult<Receptionist>>> GetAllAsync(PageInfo param, CancellationToken token);
+        Task<PaginatedResult<Receptionist>> GetAllAsync(PageInfo param, CancellationToken token);
         Task<Receptionist?> GetByIdAsync(int id, CancellationToken token);
         Task CreateAsync(Receptionist receptionist, CancellationToken token);
         Task UpdateAsync(Receptionist receptionist, CancellationToken token);

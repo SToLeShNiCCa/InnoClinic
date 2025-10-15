@@ -35,6 +35,8 @@ string connection = builder.Configuration.GetConnectionString("DefaultConnection
 builder.Services.AddDbContext<ProfilesContext>(builder => builder
 .UseSqlServer(connection, op => op.MigrationsAssembly(typeof(ProfilesContextFactory).Assembly)));
 
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 /*app.MapDefaultEndpoints();*/

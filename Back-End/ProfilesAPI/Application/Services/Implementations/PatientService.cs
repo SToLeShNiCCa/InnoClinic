@@ -45,7 +45,7 @@ namespace Application.Services.Implementations
         {
             var patients = await _repository.GetAllAsync(pageInfo, token);
 
-            var patientCollection = _mapper.Map<IReadOnlyCollection<ReadPatientDTO>>(patients);
+            var patientCollection = _mapper.Map<IReadOnlyCollection<ReadPatientDTO>>(patients.Data);
 
             return Result<IReadOnlyCollection<ReadPatientDTO>>.SuccessResult(patientCollection);
         }
@@ -54,7 +54,7 @@ namespace Application.Services.Implementations
         {
             var patient = await _repository.GetByIdAsync(id, token);
 
-            if (patient == null) throw new KeyNotFoundException("Doctor not found");
+            if (patient == null) throw new KeyNotFoundException("Patient not found");
 
             var patientDTO = _mapper.Map<ReadPatientDTO>(patient);
 

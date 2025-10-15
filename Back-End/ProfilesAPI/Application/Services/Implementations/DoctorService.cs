@@ -20,9 +20,12 @@ namespace Application.Services.Implementations
         public async Task<Result<ReadDoctorDTO>> CreateAsync(CreateDoctorDTO doctorDTO, CancellationToken token)
         {
             var doctor = _mapper.Map<Doctor>(doctorDTO);
+
             await _repository.CreateAsync(doctor, token);
-            await _repository.SaveData(token);
+            await _repository.SaveDataAsync(token);
+
             var readDoctorDTO = _mapper.Map<ReadDoctorDTO>(doctor);
+
             return Result<ReadDoctorDTO>.SuccessResult(readDoctorDTO);
         }
 
@@ -32,7 +35,7 @@ namespace Application.Services.Implementations
             if (doctor == null) return Result.NotFoundResult("Doctor is not found");
 
             await _repository.DeleteAsync(doctor, token);
-            await _repository.SaveData(token);
+            await _repository.SaveDataAsync(token);
 
             return Result.SuccessResult();
         }
@@ -40,7 +43,7 @@ namespace Application.Services.Implementations
         public async Task<Result<IReadOnlyCollection<ReadDoctorDTO>>> GetAllAsync(PageInfo pageInfo, CancellationToken token)
         {
             var doctors = await _repository.GetAllAsync(pageInfo, token);
-            var doctorCollection = _mapper.Map<IReadOnlyCollection<ReadDoctorDTO>>(doctors);
+            var doctorCollection = _mapper.Map<IReadOnlyCollection<ReadDoctorDTO>>(doctors.Data);
 
             return Result<IReadOnlyCollection<ReadDoctorDTO>>.SuccessResult(doctorCollection);
         }
@@ -60,7 +63,7 @@ namespace Application.Services.Implementations
             var doctor = _mapper.Map<Doctor>(doctorDTO);
 
             await _repository.UpdateAsync(doctor, token);
-            await _repository.SaveData(token);
+            await _repository.SaveDataAsync(token);
 
             var readDoctorDTO = _mapper.Map<ReadDoctorDTO>(doctor);
 
