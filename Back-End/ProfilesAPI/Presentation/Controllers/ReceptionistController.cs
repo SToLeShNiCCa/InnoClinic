@@ -1,4 +1,4 @@
-﻿using Application.DTO;
+﻿using Application.DTO.Receptionist;
 using AutoMapper;
 using Domain.DBServices.Models;
 using Infrastructure.DbConfigurations.Contexts;
@@ -56,7 +56,7 @@ namespace Presentation.Controllers
         /// <param name="dto">Receptionist's DTO.</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<Receptionist>> Create(DTOReceptionist dto)
+        public async Task<ActionResult<Receptionist>> Create(CreateReceptionistDTO dto)
         {
             var receptionist = _mapper.Map<Receptionist>(dto);
 
@@ -73,7 +73,7 @@ namespace Presentation.Controllers
         /// <param name="id">Unique identifier.</param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(DTOReceptionist dto, int id)
+        public async Task<ActionResult> Update(CreateReceptionistDTO dto, int id)
         {
             var receptionist = await _dbContext.Receptionists.FindAsync(id);
             if (receptionist == null) return NotFound();
@@ -81,7 +81,7 @@ namespace Presentation.Controllers
             _mapper.Map(dto, receptionist);
             await _dbContext.SaveChangesAsync();
 
-            return Ok(_mapper.Map<DTOReceptionist>(receptionist));
+            return Ok(_mapper.Map<CreateReceptionistDTO>(receptionist));
         }
 
         /// <summary>

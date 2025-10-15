@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.DTO
+namespace Application.DTO.Receptionist
 {
-    /// <summary>
-    /// Data Transfer Object (DTO) for Receptionist entity.
-    /// </summary>
-    public class DTOReceptionist
+    public class UpdateReceptionistDTO
     {
         /// <summary>
         /// Receptionist's first name.
@@ -30,10 +27,5 @@ namespace Application.DTO
         /// Office identifier associated with the receptionist(foreign key).
         /// </summary>
         public int OfficeId { get; set; }
-
-        /// <summary>
-        /// Account identifier associated with the receptionist(foreign key).
-        /// </summary>
-        public int AccountId { get; set; }
     }
 }

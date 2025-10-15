@@ -1,11 +1,8 @@
 ﻿using Application.DTO.Patients;
 using Application.Services.Interfaces;
-using AutoMapper;
 using Domain.DBServices.Models;
 using Domain.DBServices.Models.PaginationModel;
-using Infrastructure.DbConfigurations.Contexts;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Presentation.Extensions;
 
 namespace Presentation.Controllers
