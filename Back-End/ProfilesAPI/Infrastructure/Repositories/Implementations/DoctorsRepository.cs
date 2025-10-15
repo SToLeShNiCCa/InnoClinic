@@ -52,7 +52,7 @@ namespace Infrastructure.Repositories.Implementations
 
         public async Task<Doctor?> GetByIdAsync(int id, CancellationToken token)
         {
-            return await _context.Doctors.FindAsync(id);
+            return await _context.Doctors.FindAsync(id,token);
         }
 
         public async Task UpdateAsync(Doctor doctor, CancellationToken token)

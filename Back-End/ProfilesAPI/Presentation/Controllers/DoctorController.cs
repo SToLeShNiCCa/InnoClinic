@@ -1,9 +1,9 @@
 ﻿using Application.DTO.Doctors;
-using Application.DTO.Result;
 using Application.Services.Interfaces;
 using Domain.DBServices.Models;
 using Domain.DBServices.Models.PaginationModel;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.Extensions;
 using System.Reflection;
 
 namespace Presentation.Controllers

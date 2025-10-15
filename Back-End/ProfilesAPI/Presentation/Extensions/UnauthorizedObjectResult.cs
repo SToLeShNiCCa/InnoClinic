@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace Application.DTO.Result
+namespace Presentation.Extensions
 {
     public class UnauthorizedObjectResult : ObjectResult
     {
         public UnauthorizedObjectResult(object error)
             : base(error)
         {
-            base.StatusCode = 403;
+            StatusCode = 403;
         }
     }
 }

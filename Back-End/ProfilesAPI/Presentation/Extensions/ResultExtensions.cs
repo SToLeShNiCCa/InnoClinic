@@ -1,7 +1,8 @@
 ﻿using Application.DTO.Enums;
+using Application.DTO.Result;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Application.DTO.Result;
+namespace Presentation.Extensions;
 
 public static class ResultExtensions
 {

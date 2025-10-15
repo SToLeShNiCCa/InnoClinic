@@ -5,7 +5,6 @@ using AutoMapper;
 using Domain.DBServices.Models;
 using Domain.DBServices.Models.PaginationModel;
 using Infrastructure.Repositories.Interfaces;
-using System.Collections.Generic;
 
 namespace Application.Services.Implementations
 {
