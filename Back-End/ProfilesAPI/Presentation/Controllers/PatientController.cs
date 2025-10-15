@@ -62,7 +62,6 @@ namespace Presentation.Controllers
         /// Update an existing patient in the database.
         /// </summary>
         /// <param name="dto">Patient's DTO.</param>
-        /// <param name="id">Unique identifier.</param>
         /// <returns></returns>
         [HttpPut]
         public async Task<ActionResult> Update(UpdatePatientDTO dto, CancellationToken token)
@@ -81,6 +80,7 @@ namespace Presentation.Controllers
         public async Task<ActionResult> Delete(int id, CancellationToken token)
         {
             await _patientService.DeleteAsync(id, token);
+
             return NoContent();
         }
     }
