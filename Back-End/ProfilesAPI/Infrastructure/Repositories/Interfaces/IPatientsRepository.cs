@@ -16,6 +16,6 @@ namespace Infrastructure.Repositories.Interfaces
         Task CreateAsync(Patient patient, CancellationToken token);
         Task UpdateAsync(Patient patient, CancellationToken token);
         Task DeleteAsync(Patient patient, CancellationToken token);
-        Task SaveData(CancellationToken token);
+        Task SaveDataAsync(CancellationToken token);
     }
 }

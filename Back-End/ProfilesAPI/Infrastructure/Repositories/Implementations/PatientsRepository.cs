@@ -52,7 +52,7 @@ namespace Infrastructure.Repositories.Implementations
             return await _context.Patients.FindAsync(id, token);
         }
 
-        public async Task SaveData(CancellationToken token)
+        public async Task SaveDataAsync(CancellationToken token)
         {
             await _context.SaveChangesAsync(token);
         }
