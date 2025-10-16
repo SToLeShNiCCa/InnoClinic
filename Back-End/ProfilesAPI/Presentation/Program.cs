@@ -1,41 +1,36 @@
 using Application.Services.Implementations;
 using Application.Services.Interfaces;
-using Infrastructure.DbConfigurations.Contexts;
-using Infrastructure.Repositories.Implementations;
-using Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Migrations.MSSQL;
 using System.Reflection;
+using Infrastructure;
+using Infrastructure.DbConfigurations.Contexts;
+using Application;
+using Infrastructure.DBSettings;
+using Microsoft.Extensions.Options;
+using Presentation.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 /*builder.AddServiceDefaults();*/
+builder.Configuration
+    .AddJsonFile("appsettings.json")
+    .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("APSNET_Environment")}.json"); // check variable
 
-builder.Services.AddAutoMapper(cfg => { }, Assembly.GetExecutingAssembly());
+builder.Services.AddLocalization(options =>
+{
+    options.ResourcesPath = "Resources";
+});
 
-// Add services to the container.
-
-builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
 
-builder.Services.AddScoped<IDoctorService, DoctorService>();
-builder.Services.AddScoped<IDoctorsRepository, DoctorsRepository>();
+builder.Services.Configure<DataBaseSettings>(builder.Configuration.GetSection(nameof(DataBaseSettings)));
 
-builder.Services.AddScoped<IPatientService, PatientService>();
-builder.Services.AddScoped<IPatientsRepository, PatientsRepository>();
+builder.Services.BindSettings();
 
-builder.Services.AddScoped<IReceptionistService, ReceptionistService>();
-builder.Services.AddScoped<IReceptionistsRepository, ReceptionistsRepository>();
-
-string connection = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? throw new Exception("Connection string not found");
-
-builder.Services.AddDbContext<ProfilesContext>(builder => builder
-.UseSqlServer(connection, op => op.MigrationsAssembly(typeof(ProfilesContextFactory).Assembly)));
-
-builder.Services.AddSwaggerGen();
+builder.Services.AddPresentation();
+builder.Services.AddInfrastructureLayer(builder.Configuration);
+builder.Services.AddApplicationLayer();
 
 var app = builder.Build();
 

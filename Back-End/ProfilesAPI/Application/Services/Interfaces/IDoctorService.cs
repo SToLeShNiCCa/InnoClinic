@@ -9,7 +9,7 @@ namespace Application.Services.Interfaces
         Task<Result<IReadOnlyCollection<ReadDoctorDTO>>> GetAllAsync(PageInfo pageInfo, CancellationToken token);
         Task<Result<ReadDoctorDTO>> GetByIdAsync(int id, CancellationToken token);
         Task<Result<ReadDoctorDTO>> CreateAsync(CreateDoctorDTO doctor, CancellationToken token);
-        Task <Result<ReadDoctorDTO>> UpdateAsync(UpdateDoctorDTO doctor,CancellationToken token);
+        Task <Result<ReadDoctorDTO>> UpdateAsync(int id, UpdateDoctorDTO doctor,CancellationToken token);
         Task <Result> DeleteAsync(int id,CancellationToken token);
     }
 }

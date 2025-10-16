@@ -12,11 +12,13 @@ namespace Application.Services.Implementations
     {
         private readonly IPatientsRepository _repository;
         private readonly IMapper _mapper;
+
         public PatientService(IPatientsRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
+
         public async Task<Result<ReadPatientDTO>> CreateAsync(CreatePatientDTO patientDTO, CancellationToken token)
         {
             var patient = _mapper.Map<Patient>(patientDTO);
@@ -35,7 +37,7 @@ namespace Application.Services.Implementations
 
             if (patient == null) return Result.NotFoundResult("Patient is not found");
 
-            await _repository.DeleteAsync(patient, token);
+            _repository.Delete(patient);
             await _repository.SaveDataAsync(token);
 
             return Result.SuccessResult();
@@ -54,18 +56,19 @@ namespace Application.Services.Implementations
         {
             var patient = await _repository.GetByIdAsync(id, token);
 
-            if (patient == null) throw new KeyNotFoundException("Patient not found");
+            if (patient == null) return Result<ReadPatientDTO>.NotFoundResult("Patient not found");
 
             var patientDTO = _mapper.Map<ReadPatientDTO>(patient);
 
             return Result<ReadPatientDTO>.SuccessResult(patientDTO);
         }
 
-        public async Task<Result<ReadPatientDTO>> UpdateAsync(UpdatePatientDTO patientDTO, CancellationToken token)
+        public async Task<Result<ReadPatientDTO>> UpdateAsync(int id, UpdatePatientDTO patientDTO, CancellationToken token)
         {
-            var patient = _mapper.Map<Patient>(patientDTO);
+            var patient = await _repository.GetByIdAsync(id, token);
+            if (patient is null) return Result<ReadPatientDTO>.NotFoundResult("Patient is not found");
 
-            await _repository.UpdateAsync(patient, token);
+            _mapper.Map(patientDTO, patient);
             await _repository.SaveDataAsync(token);
 
             var readPatientDTO = _mapper.Map<ReadPatientDTO>(patient);

@@ -10,16 +10,18 @@ namespace Infrastructure.Repositories.Implementations
     public class ReceptionistsRepository : IReceptionistsRepository
     {
         private readonly ProfilesContext _context;
+
         public ReceptionistsRepository(ProfilesContext context)
         {
             _context = context;
         }
+
         public async Task CreateAsync(Receptionist receptionist, CancellationToken token)
         {
             await _context.Receptionists.AddAsync(receptionist, token);
         }
 
-        public async Task DeleteAsync(Receptionist receptionist, CancellationToken token)
+        public void Delete(Receptionist receptionist)
         {
             _context.Remove(receptionist);
         }
@@ -55,11 +57,6 @@ namespace Infrastructure.Repositories.Implementations
         public async Task SaveDataAsync(CancellationToken token)
         {
             await _context.SaveChangesAsync(token);
-        }
-
-        public async Task UpdateAsync(Receptionist receptionist, CancellationToken token)
-        {
-            _context.Receptionists.Update(receptionist);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Infrastructure.DbConfigurations.ModelsSettings
     /// <summary>
     /// Receptionists table configuration class.
     /// </summary>
-    public class ReceptionistConfiguration : EntityConfuguration<Receptionist>
+    public class ReceptionistConfiguration : EntityConfiguration<Receptionist>
     {
         protected override void ConfigureAdditionalProperties(EntityTypeBuilder<Receptionist> builder)
         {

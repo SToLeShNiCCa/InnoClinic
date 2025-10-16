@@ -12,12 +12,14 @@ namespace Application.Services.Implementations
     {
         private readonly IMapper _mapper;
         private readonly IReceptionistsRepository _repository;
-        public ReceptionistService(IMapper mapper,IReceptionistsRepository repository)
+
+        public ReceptionistService(IMapper mapper, IReceptionistsRepository repository)
         {
             _mapper = mapper;
             _repository = repository;
         }
-        public async Task<Result<ReadReceptionistDTO>> CreateAsync(CreateReceptionistDTO receptionistDTO, CancellationToken token)
+        public async Task<Result<ReadReceptionistDTO>> CreateAsync(
+            CreateReceptionistDTO receptionistDTO, CancellationToken token)
         {
             var receptionist = _mapper.Map<Receptionist>(receptionistDTO);
 
@@ -32,10 +34,9 @@ namespace Application.Services.Implementations
         public async Task<Result> DeleteAsync(int id, CancellationToken token)
         {
             var receptionist = await _repository.GetByIdAsync(id, token);
-
             if (receptionist == null) return Result.NotFoundResult("Receptionist is not found");
 
-            await _repository.DeleteAsync(receptionist, token);
+            _repository.Delete(receptionist);
             await _repository.SaveDataAsync(token);
 
             return Result.SuccessResult();
@@ -52,20 +53,20 @@ namespace Application.Services.Implementations
         public async Task<Result<ReadReceptionistDTO>> GetByIdAsync(int id, CancellationToken token)
         {
             var receptionist = await _repository.GetByIdAsync(id, token);
-
-            if (receptionist == null) throw new KeyNotFoundException("Receptionist is not found");
+            if (receptionist == null) return Result<ReadReceptionistDTO>.NotFoundResult("Receptionist is not found");
 
             var receptionistDTO = _mapper.Map<ReadReceptionistDTO>(receptionist);
 
             return Result<ReadReceptionistDTO>.SuccessResult(receptionistDTO);
         }
-
-        public async Task<Result<ReadReceptionistDTO>> UpdateAsync(UpdateReceptionistDTO receptionist, CancellationToken token)
+        
+        public async Task<Result<ReadReceptionistDTO>> UpdateAsync(
+            int id, UpdateReceptionistDTO receptionistDTO, CancellationToken token)
         {
-            var updatedReceptionist = _mapper.Map<Receptionist>(receptionist);
+            var updatedReceptionist = await _repository.GetByIdAsync(id, token);
+            if (updatedReceptionist == null) return Result<ReadReceptionistDTO>.NotFoundResult("Receptionist is not found");
 
-            await _repository.UpdateAsync(updatedReceptionist, token);
-            await _repository.SaveDataAsync(token);
+            _mapper.Map(receptionistDTO, updatedReceptionist);
 
             var readReceptionistDTO = _mapper.Map<ReadReceptionistDTO>(updatedReceptionist);
 

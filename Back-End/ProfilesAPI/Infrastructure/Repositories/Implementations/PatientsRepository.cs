@@ -2,7 +2,6 @@
 using Domain.DBServices.Models.PaginationModel;
 using Infrastructure.DbConfigurations.Contexts;
 using Infrastructure.Repositories.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories.Implementations
@@ -20,7 +19,7 @@ namespace Infrastructure.Repositories.Implementations
             await _context.Patients.AddAsync(patient, token);
         }
 
-        public async Task DeleteAsync(Patient patient,CancellationToken token)
+        public void Delete(Patient patient)
         {
             _context.Remove(patient);
         }
@@ -55,11 +54,6 @@ namespace Infrastructure.Repositories.Implementations
         public async Task SaveDataAsync(CancellationToken token)
         {
             await _context.SaveChangesAsync(token);
-        }
-
-        public async Task UpdateAsync(Patient patient, CancellationToken token)
-        {
-            _context.Patients.Update(patient);
         }
     }
 }

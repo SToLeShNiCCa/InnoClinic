@@ -1,9 +1,4 @@
 ﻿using Domain.DBServices.Models.PaginationModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.DTO.Doctors
 {
@@ -54,6 +49,5 @@ namespace Application.DTO.Doctors
         /// Doctor's status (e.g., Active, Inactive).
         /// </summary>
         public required string Status { get; set; }
-        public PageInfo? PageInfo { get; set; }
     }
 }

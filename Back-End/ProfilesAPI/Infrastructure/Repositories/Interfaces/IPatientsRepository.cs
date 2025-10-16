@@ -14,8 +14,7 @@ namespace Infrastructure.Repositories.Interfaces
         Task<PaginatedResult<Patient>> GetAllAsync(PageInfo param, CancellationToken token);
         Task<Patient?> GetByIdAsync(int id, CancellationToken token);
         Task CreateAsync(Patient patient, CancellationToken token);
-        Task UpdateAsync(Patient patient, CancellationToken token);
-        Task DeleteAsync(Patient patient, CancellationToken token);
+        void Delete(Patient patient);
         Task SaveDataAsync(CancellationToken token);
     }
 }

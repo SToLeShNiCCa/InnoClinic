@@ -1,10 +1,7 @@
 ﻿using Application.DTO.Receptionist;
 using Application.Services.Interfaces;
-using AutoMapper;
-using Domain.DBServices.Models;
 using Domain.DBServices.Models.PaginationModel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Presentation.Extensions;
 
 namespace Presentation.Controllers
@@ -17,6 +14,7 @@ namespace Presentation.Controllers
     public class ReceptionistController : ControllerBase
     {
         private readonly IReceptionistService _service;
+
         public ReceptionistController(IReceptionistService service)
         {
             _service = service;
@@ -27,11 +25,11 @@ namespace Presentation.Controllers
         /// </summary>
         /// <returns>receptionist's list.</returns>
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyCollection<Receptionist>>> GetAll([FromQuery] PageInfo pageInfo, CancellationToken token)
+        public async Task<ActionResult> GetAll([FromQuery] PageInfo pageInfo, CancellationToken token)
         {
-            var receptionists = await _service.GetAllAsync(pageInfo, token);
+            var result = await _service.GetAllAsync(pageInfo, token);
 
-            return receptionists.ToActionResult();
+            return result.ToActionResult();
         }
 
         /// <summary>
@@ -40,11 +38,11 @@ namespace Presentation.Controllers
         /// <param name="id">Unique identifier.</param>
         /// <returns>Receptionist object.</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Receptionist>> GetById(int id, CancellationToken token)
+        public async Task<ActionResult> GetByIdAsync(int id, CancellationToken token)
         {
-            var receptionist = await _service.GetByIdAsync(id, token);
+            var result = await _service.GetByIdAsync(id, token);
 
-            return receptionist.ToActionResult();
+            return result.ToActionResult();
         }
 
         /// <summary>
@@ -53,11 +51,11 @@ namespace Presentation.Controllers
         /// <param name="dto">Receptionist's DTO.</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<Receptionist>> Create(CreateReceptionistDTO dto, CancellationToken token)
+        public async Task<ActionResult> CreateAsync(CreateReceptionistDTO dto, CancellationToken token)
         {
-            var createdReceptionist = await _service.CreateAsync(dto, token);
+            var result = await _service.CreateAsync(dto, token); // TODO
 
-            return createdReceptionist.ToActionResult();
+            return result.ToActionResult();
         }
 
         /// <summary>
@@ -65,12 +63,12 @@ namespace Presentation.Controllers
         /// </summary>
         /// <param name="dto">Receptionist's DTO.</param>
         /// <returns></returns>
-        [HttpPut]
-        public async Task<ActionResult> Update(UpdateReceptionistDTO dto, CancellationToken token)
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Update(int id, UpdateReceptionistDTO dto, CancellationToken token)
         {
-            var updatedReceptionist = await _service.UpdateAsync(dto, token);
+            var result = await _service.UpdateAsync(id, dto, token);
 
-            return updatedReceptionist.ToActionResult();
+            return result.ToActionResult();
         }
 
         /// <summary>
@@ -78,12 +76,12 @@ namespace Presentation.Controllers
         /// </summary>
         /// <param name="id">Unique identifier.</param>
         /// <returns></returns>
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<ActionResult> Delete(int id,CancellationToken token)
         {
-            await _service.DeleteAsync(id, token);
+            var result = await _service.DeleteAsync(id, token);
 
-            return NoContent();
+            return result.ToActionResult();
         }
     }
 }

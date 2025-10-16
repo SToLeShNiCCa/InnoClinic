@@ -19,6 +19,7 @@ namespace Presentation.Controllers
         /// Controller's dependencies.
         /// </summary>
         private readonly IDoctorService _service;
+
         public DoctorController(IDoctorService service)
         {
             _service = service;
@@ -29,11 +30,11 @@ namespace Presentation.Controllers
         /// </summary>
         /// <returns>Doctor's list</returns>
         [HttpGet]
-        public async Task<ActionResult> GetAll([FromQuery]PageInfo pageInfo,CancellationToken token)
+        public async Task<ActionResult> GetAll([FromQuery] PageInfo pageInfo, CancellationToken token)
         {
-            var doctors = await _service.GetAllAsync(pageInfo,token);
+            var result = await _service.GetAllAsync(pageInfo, token);
 
-            return doctors.ToActionResult();
+            return result.ToActionResult();
         }
 
         /// <summary>
@@ -42,11 +43,11 @@ namespace Presentation.Controllers
         /// <param name="id">Unique identifier</param>
         /// <returns>Doctor's object</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReadDoctorDTO>> GetByIdAsync(int id , CancellationToken token)
+        public async Task<ActionResult> GetByIdAsync(int id, CancellationToken token)
         {
-            var doctor = await _service.GetByIdAsync(id, token);
+            var result = await _service.GetByIdAsync(id, token);
 
-            return doctor.ToActionResult();
+            return result.ToActionResult();
         }
 
         /// <summary>
@@ -55,11 +56,11 @@ namespace Presentation.Controllers
         /// <param name="dto">Doctor's DTO</param>
         /// <returns>Proof that doctor was created(REST)</returns>
         [HttpPost]
-        public async Task<ActionResult<ReadDoctorDTO>> Create(CreateDoctorDTO dto, CancellationToken token)
+        public async Task<ActionResult> CreateAsync(CreateDoctorDTO dto, CancellationToken token)
         {
-            var createdDoctor = await _service.CreateAsync(dto, token);
+            var result = await _service.CreateAsync(dto, token);
 
-            return createdDoctor.ToActionResult();
+            return result.ToActionResult();
         }
 
         /// <summary>
@@ -68,12 +69,12 @@ namespace Presentation.Controllers
         /// <param name="dto">Doctor's DTO</param>
         /// <param name="id">Unique identifier</param>
         /// <returns></returns>
-        [HttpPut]
-        public async Task<ActionResult> Update(UpdateDoctorDTO dto,CancellationToken token)
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> UpdateAsync(int id, UpdateDoctorDTO dto, CancellationToken token)
         {
-            var updatedDoctor = await _service.UpdateAsync(dto,token);
+            var result = await _service.UpdateAsync(id, dto, token);
 
-            return updatedDoctor.ToActionResult();
+            return result.ToActionResult();
         }
 
         /// <summary>
@@ -82,10 +83,11 @@ namespace Presentation.Controllers
         /// <param name="id">Unique identifier</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id,CancellationToken token)
+        public async Task<ActionResult> Delete(int id, CancellationToken token)
         {
-            await _service.DeleteAsync(id,token);
-            return NoContent();
+            var result = await _service.DeleteAsync(id, token);
+            
+            return result.ToActionResult();
         }
     }
 }

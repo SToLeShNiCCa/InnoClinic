@@ -2,15 +2,14 @@
 using Domain.DBServices.Models.PaginationModel;
 using Infrastructure.DbConfigurations.Contexts;
 using Infrastructure.Repositories.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
 
 namespace Infrastructure.Repositories.Implementations
 {
     public class DoctorsRepository : IDoctorsRepository
     {
         private readonly ProfilesContext _context;
+
         public DoctorsRepository(ProfilesContext context)
         {
             _context = context;
@@ -24,9 +23,9 @@ namespace Infrastructure.Repositories.Implementations
             await _context.Doctors.AddAsync(doctor, token);
         }
 
-        public async Task DeleteAsync(Doctor doctor , CancellationToken token)
+        public void Delete(Doctor doctor)
         {
-            _context.Remove(doctor);
+            _context.Remove(doctor); // TODO
         }
 
         public async Task<PaginatedResult<Doctor>> GetAllAsync(PageInfo pageInfo, CancellationToken token)
@@ -53,11 +52,6 @@ namespace Infrastructure.Repositories.Implementations
         public async Task<Doctor?> GetByIdAsync(int id, CancellationToken token)
         {
             return await _context.Doctors.FindAsync(id,token);
-        }
-
-        public async Task UpdateAsync(Doctor doctor, CancellationToken token)
-        {
-            _context.Doctors.Update(doctor);
         }
     }
 }
