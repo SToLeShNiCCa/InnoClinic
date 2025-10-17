@@ -13,7 +13,5 @@ namespace Presentation.Extensions
 
             return services;
         }
-
-        public static I
     }
 }

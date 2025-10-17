@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Options;
 
-namespace Migrations.MSSQL
+namespace Infrastructure.DBContextFactory
 {
     /// <summary>
     /// Class <c>InnoClinicDBContextFactory</c> is factory for DB context for migrations.

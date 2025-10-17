@@ -10,6 +10,8 @@ namespace Infrastructure.DbConfigurations.ModelsSettings
     {
         protected override void ConfigureAdditionalProperties(EntityTypeBuilder<Receptionist> builder)
         {
+            builder.Property(p => p.OfficeId)
+                   .IsRequired();
         }
     }
 }

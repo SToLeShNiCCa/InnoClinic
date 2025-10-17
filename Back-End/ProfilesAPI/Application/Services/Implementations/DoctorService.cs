@@ -37,7 +37,7 @@ namespace Application.Services.Implementations
         public async Task<Result> DeleteAsync(int id, CancellationToken token)
         {
             var doctor = await _repository.GetByIdAsync(id, token);
-            if (doctor == null) return Result.NotFoundResult(_localizer["DoctorNotFoundMessage"]); // TODO
+            if (doctor == null) return Result.NotFoundResult("DoctorNotFound"); // TODO localize
 
             _repository.Delete(doctor);
             await _repository.SaveDataAsync(token);

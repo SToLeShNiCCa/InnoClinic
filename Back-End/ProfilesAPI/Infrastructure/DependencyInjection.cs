@@ -1,21 +1,20 @@
 ﻿using Infrastructure.DbConfigurations.Contexts;
+using Infrastructure.DBContextFactory;
 using Infrastructure.DBSettings;
 using Infrastructure.Repositories.Implementations;
 using Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services)
     {
         return services
             .ConfigureRepositories()
-            .ConfigureDatabase(configuration);
+            .ConfigureDatabase();
     }
 
     private static IServiceCollection ConfigureRepositories(this IServiceCollection services)
@@ -27,12 +26,12 @@ public static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection ConfigureDatabase(this IServiceCollection services, IConfiguration configuration)
+    private static IServiceCollection ConfigureDatabase(this IServiceCollection services)
     {
         var dbSettings = services.BuildServiceProvider().GetRequiredService<DataBaseSettings>();
 
         services.AddDbContext<ProfilesContext>(builder => builder
-               .UseSqlServer(dbSettings.ConnectionString, op => op.MigrationsAssembly(typeof(ProfilesContextFactory).Assembly)));//move factory
+               .UseSqlServer(dbSettings.ConnectionString, op => op.MigrationsAssembly(typeof(ProfilesContextFactory).Assembly)));
 
         return services;
     }

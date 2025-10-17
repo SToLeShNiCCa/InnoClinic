@@ -35,9 +35,8 @@ namespace Infrastructure.DbConfigurations.Contexts
         /// <param name="modelBuilder">Class which give opportunity for set up tables settings</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            IOptions
-            Localication
-            Exception Middleware
+            //Localication под конец мб доделать и подумать
+            //Exception Middleware
             base.OnModelCreating(modelBuilder);
         }
     }

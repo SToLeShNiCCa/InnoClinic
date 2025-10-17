@@ -15,6 +15,8 @@ namespace Infrastructure.DbConfigurations.ModelsSettings
         /// <param name="builder">Patient's settings variable</param>
         protected override void ConfigureAdditionalProperties(EntityTypeBuilder<Patient> builder)
         {
+            builder.Property(p => p.IsLinkedToAccount)
+                   .IsRequired();
         }
     }
 }

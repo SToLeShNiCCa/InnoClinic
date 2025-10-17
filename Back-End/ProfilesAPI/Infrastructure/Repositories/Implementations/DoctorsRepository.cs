@@ -25,7 +25,7 @@ namespace Infrastructure.Repositories.Implementations
 
         public void Delete(Doctor doctor)
         {
-            _context.Remove(doctor); // TODO
+            _context.Remove(doctor);
         }
 
         public async Task<PaginatedResult<Doctor>> GetAllAsync(PageInfo pageInfo, CancellationToken token)

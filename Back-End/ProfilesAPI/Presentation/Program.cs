@@ -1,42 +1,39 @@
-using Application.Services.Implementations;
-using Application.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Migrations.MSSQL;
-using System.Reflection;
 using Infrastructure;
 using Infrastructure.DbConfigurations.Contexts;
 using Application;
 using Infrastructure.DBSettings;
-using Microsoft.Extensions.Options;
 using Presentation.Extensions;
+using Application.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 /*builder.AddServiceDefaults();*/
 builder.Configuration
     .AddJsonFile("appsettings.json")
-    .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("APSNET_Environment")}.json"); // check variable
+    .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true);
 
 builder.Services.AddLocalization(options =>
 {
     options.ResourcesPath = "Resources";
 });
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-
 builder.Services.Configure<DataBaseSettings>(builder.Configuration.GetSection(nameof(DataBaseSettings)));
 
-builder.Services.BindSettings();
+//builder.Services.BindSettings();
 
 builder.Services.AddPresentation();
-builder.Services.AddInfrastructureLayer(builder.Configuration);
+builder.Services.AddInfrastructureLayer();
 builder.Services.AddApplicationLayer();
 
 var app = builder.Build();
 
+
+LangHelper.ChangeLanguage("de");
+Console.WriteLine($"{LangHelper.GetString("Doctor")} {LangHelper.GetString("Not Found")}");
+
 /*app.MapDefaultEndpoints();*/
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
