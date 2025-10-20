@@ -3,7 +3,7 @@ using Infrastructure.DBConfiguration.ServiceContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace Infrastructure.DBConfiguration
+namespace Infrastructure.ContextFactory
 {
     public class ServicesContextFactory : IDesignTimeDbContextFactory<ServicesContext>
     {
