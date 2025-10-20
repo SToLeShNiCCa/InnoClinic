@@ -5,10 +5,10 @@ namespace Infrastructure.Repository.Interfaces
 {
     public interface IServiceCategoryRepository
     {
-        Task<PaginatedResult<ServiceCategory>> GetAllAsync(PageInfo param, CancellationToken token);
+        Task<PaginatedResult<ServiceCategory>> GetAllAsync(PageInfo pageInfo, CancellationToken token);
         Task<ServiceCategory?> GetByIdAsync(int id, CancellationToken token);
-        Task CreateAsync(ServiceCategory doctor, CancellationToken token);
-        void Delete(ServiceCategory doctor);
+        Task CreateAsync(ServiceCategory serviceCategory, CancellationToken token);
+        void Delete(ServiceCategory serviceCategory);
         Task SaveDataAsync(CancellationToken token);
     }
 }
