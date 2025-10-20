@@ -365,3 +365,5 @@ FodyWeavers.xsd
 # appsettings.json files that may contain sensitive data
 .vs/appsettings*.json
 .vs/appsettings*.Development.json
+/Back-End/ServicesAPI/Presentation/appsettings.json
+/Back-End/ServicesAPI/Presentation/appsettings.Development.json
