@@ -1,3 +1,4 @@
+using Application;
 using Infrastructure;
 using Infrastructure.DBConfiguration.ServiceContext;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddInfrastructureLayer();
+builder.Services.AddApplicationLayer();
 
 
 var app = builder.Build();
