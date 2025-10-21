@@ -1,6 +1,6 @@
 ﻿using Domain.Models;
+using Infrastructure.DBConfiguration.ModelsSettings.PropertyBuilderExt;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore; // Add this using directive
 
 namespace Infrastructure.DBConfiguration.ModelsSettings
 {
@@ -11,6 +11,10 @@ namespace Infrastructure.DBConfiguration.ModelsSettings
             builder.Property(s => s.ServiceCategoryId)
                 .IsRequired();
 
+            builder.Property(s => s.IsActive)
+                .HasEnumComment()
+                .IsRequired();
+
             builder.Property(s => s.ServiceName)
                 .HasMaxLength(50)
                 .IsRequired();
@@ -19,9 +23,6 @@ namespace Infrastructure.DBConfiguration.ModelsSettings
                 .IsRequired();
 
             builder.Property(s => s.SpecializationId)
-                .IsRequired();
-
-            builder.Property(s => s.IsActive)
                 .IsRequired();
         }
     }

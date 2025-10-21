@@ -3,22 +3,18 @@ using Domain.Models.PageModels;
 using Infrastructure.DBConfiguration.ServiceContext;
 using Infrastructure.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Repository.Implementations
 {
     public class ServiceRepository : IServiceRepository
     {
         private readonly ServicesContext _servicesContext;
+
         public ServiceRepository(ServicesContext services)
         {
             _servicesContext = services;
         }
+
         public async Task CreateAsync(Service service, CancellationToken token)
         {
             await _servicesContext.Services.AddAsync(service, token);
