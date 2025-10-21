@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.DBConfiguration.ModelsSettings
 {
     public abstract class EntityConfiguration<T> : IEntityTypeConfiguration<T>
-        where T : class
+        where T : Entity
     {
         public void Configure(EntityTypeBuilder<T> builder)
         {
