@@ -2,7 +2,6 @@ using Application.Extension;
 using Infrastructure.DBConfiguration.DBSettings;
 using Infrastructure.Extension;
 using Presentation.Extension;
-using Presentation.Shared.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -26,7 +26,7 @@ namespace Presentation.Shared.Exceptions
 
         private async Task HandleException(Exception ex, HttpContext context) 
         {
-            var statusCode = GetStatusCode(ex);
+            var statusCode = HttpStatusCode.InternalServerError;
             var message = ex.Message;
             var stackTrace = ex.StackTrace;
 
@@ -37,11 +37,5 @@ namespace Presentation.Shared.Exceptions
 
             await context.Response.WriteAsync(exceptionResult);
         }
-
-        private HttpStatusCode GetStatusCode(Exception ex)
-            => ex switch
-            {
-                _ => HttpStatusCode.InternalServerError
-            };
     }
 }

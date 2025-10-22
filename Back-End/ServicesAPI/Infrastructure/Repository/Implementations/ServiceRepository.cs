@@ -40,10 +40,10 @@ namespace Infrastructure.Repository.Implementations
 
             return new PaginatedResult<Service>
                 (
-                services,
-                pageInfo.Page,
-                pageInfo.ItemsPerPage,
-                totalRecords
+                    services,
+                    pageInfo.Page,
+                    pageInfo.ItemsPerPage,
+                    totalRecords
                 );
         }
 
