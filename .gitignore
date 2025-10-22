@@ -367,3 +367,6 @@ FodyWeavers.xsd
 .vs/appsettings*.Development.json
 /Back-End/ServicesAPI/Presentation/appsettings.json
 /Back-End/ServicesAPI/Presentation/appsettings.Development.json
+/Back-End/AppointmentAPI/Presentation/appsettings.json
+/Back-End/AppointmentAPI/Presentation/appsettings.Development.json
+/Back-End/AppointmentAPI
