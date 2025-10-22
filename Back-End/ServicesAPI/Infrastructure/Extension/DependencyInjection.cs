@@ -1,5 +1,4 @@
-﻿using Domain.Models;
-using Infrastructure.DBConfiguration.DBSettings;
+﻿using Infrastructure.DBConfiguration.DBSettings;
 using Infrastructure.DBConfiguration.ServiceContext;
 using Infrastructure.Repository.Implementations;
 using Infrastructure.Repository.Interfaces;

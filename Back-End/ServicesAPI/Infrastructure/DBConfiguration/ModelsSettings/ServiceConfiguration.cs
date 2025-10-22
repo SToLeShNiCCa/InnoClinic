@@ -1,5 +1,4 @@
 ﻿using Domain.Models;
-using Infrastructure.DBConfiguration.ModelsSettings.PropertyBuilderExt;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.DBConfiguration.ModelsSettings

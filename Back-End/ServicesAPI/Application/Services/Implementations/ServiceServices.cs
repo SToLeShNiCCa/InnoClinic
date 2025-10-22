@@ -42,7 +42,8 @@ namespace Application.Services.Implementations
             return Result.SuccessResult();
         }
 
-        public async Task<Result<IReadOnlyCollection<ReadServiceDTO>>> GetAllAsync(PageInfo pageInfo, CancellationToken token)
+        public async Task<Result<IReadOnlyCollection<ReadServiceDTO>>> GetAllAsync(
+            PageInfo pageInfo, CancellationToken token)
         {
             var services =  await _repository.GetAllAsync(pageInfo, token);
             var serviceCollection = _mapper.Map<IReadOnlyCollection<ReadServiceDTO>>(services.Data);
@@ -60,7 +61,8 @@ namespace Application.Services.Implementations
             return Result<ReadServiceDTO>.SuccessResult(resultDTO);
         }
 
-        public async Task<Result<ReadServiceDTO>> UpdateAsync(int id, UpdateServiceDTO serviceDTO, CancellationToken token)
+        public async Task<Result<ReadServiceDTO>> UpdateAsync(
+            int id, UpdateServiceDTO serviceDTO, CancellationToken token)
         {
             var service = await _repository.GetByIdAsync(id, token);
             if(service is null)return Result<ReadServiceDTO>.NotFoundResult("Service is not found");

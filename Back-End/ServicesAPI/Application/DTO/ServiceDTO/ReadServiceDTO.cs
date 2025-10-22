@@ -1,6 +1,4 @@
-﻿using Domain.Enums;
-
-namespace Application.DTO.ServiceDTO
+﻿namespace Application.DTO.ServiceDTO
 {
     public class ReadServiceDTO
     {

@@ -10,9 +10,6 @@ namespace Infrastructure.DBConfiguration.ServiceContext
         {
         }
 
-        public ServicesContext()
-        { }
-
         public DbSet<Service> Services { get; set; }
         public DbSet<ServiceCategory> ServiceCategories { get; set; }
 
@@ -21,6 +18,5 @@ namespace Infrastructure.DBConfiguration.ServiceContext
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ServicesContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }
