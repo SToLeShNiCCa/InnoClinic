@@ -3,6 +3,7 @@ using Infrastructure.DBConfiguration.ServiceContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ServicesContext))]
-    partial class ServicesContextModelSnapshot : ModelSnapshot
+    [Migration("20251021142921_ChangedTablesSettings")]
+    partial class ChangedTablesSettings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,8 +51,6 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ServiceCategoryId");
-
                     b.ToTable("Services");
                 });
 
@@ -74,22 +75,6 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ServiceCategories");
-                });
-
-            modelBuilder.Entity("Domain.Models.Service", b =>
-                {
-                    b.HasOne("Domain.Models.ServiceCategory", "ServiceCategory")
-                        .WithMany("Services")
-                        .HasForeignKey("ServiceCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ServiceCategory");
-                });
-
-            modelBuilder.Entity("Domain.Models.ServiceCategory", b =>
-                {
-                    b.Navigation("Services");
                 });
 #pragma warning restore 612, 618
         }

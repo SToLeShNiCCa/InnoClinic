@@ -11,8 +11,12 @@ namespace Infrastructure.DBConfiguration.ModelsSettings
             builder.Property(s => s.ServiceCategoryId)
                 .IsRequired();
 
+            builder
+                .HasOne(p => p.ServiceCategory)
+                .WithMany(p => p.Services)
+                .HasForeignKey(p => p.ServiceCategoryId);
+
             builder.Property(s => s.IsActive)
-                .HasEnumComment()
                 .IsRequired();
 
             builder.Property(s => s.ServiceName)

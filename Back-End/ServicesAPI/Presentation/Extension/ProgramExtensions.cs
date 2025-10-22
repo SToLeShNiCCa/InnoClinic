@@ -6,6 +6,12 @@ namespace Presentation.Extension
     {
         public static IServiceCollection AddProgramServices(this IServiceCollection service)
         {
+            return service
+                .ProgramServices();
+        }
+
+        private static IServiceCollection ProgramServices(this IServiceCollection service)
+        {
             service.AddControllers();
             service.AddOpenApi();
             service.AddSwaggerGen();

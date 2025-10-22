@@ -1,11 +1,13 @@
-﻿using Infrastructure.ContextFactory;
+﻿using Domain.Models;
 using Infrastructure.DBConfiguration.DBSettings;
 using Infrastructure.DBConfiguration.ServiceContext;
+using Infrastructure.Repository.Implementations;
 using Infrastructure.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
-namespace Infrastructure
+namespace Infrastructure.Extension
 {
     public static class DependencyInjection
     {
@@ -18,19 +20,19 @@ namespace Infrastructure
 
         private static IServiceCollection ConfigureDatabase(this IServiceCollection service)
         {
-            var dbSettings = service.BuildServiceProvider().GetRequiredService<DataBaseSettings>();
+            var dbSettings = service.BuildServiceProvider().GetRequiredService<IOptions<DataBaseSettings>>().Value;
 
             service.AddDbContext<ServicesContext>(options => options
                 .UseSqlServer
-                    (dbSettings.ConnectionString, op => op.MigrationsAssembly(typeof(ServicesContextFactory).Assembly)));
+                    (dbSettings.ConnectionString));
 
             return service;
         }
 
         private static IServiceCollection AddRepositories(this IServiceCollection service)
         {
-            service.AddScoped<IServiceRepository>();
-            service.AddScoped<IServiceCategoryRepository>();
+            service.AddScoped<IServiceRepository, ServiceRepository>();
+            service.AddScoped<IServiceCategoryRepository, ServiceCategoryRepository>();
 
             return service;
         }

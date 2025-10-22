@@ -1,14 +1,8 @@
 ﻿using Application.Services.Implementations;
 using Application.Services.Interfaces;
-using Domain.Models;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application
+namespace Application.Extension
 {
     public static class DependencyInjection
     {

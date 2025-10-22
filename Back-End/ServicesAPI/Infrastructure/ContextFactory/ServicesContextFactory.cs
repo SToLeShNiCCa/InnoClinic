@@ -2,23 +2,23 @@
 using Infrastructure.DBConfiguration.ServiceContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Options;
 
 namespace Infrastructure.ContextFactory
 {
     public class ServicesContextFactory : IDesignTimeDbContextFactory<ServicesContext>
     {
-        private readonly DataBaseSettings _connection;
+        private readonly DataBaseSettings _dataBaseSettings;
 
-        public ServicesContextFactory(DataBaseSettings connection)
+        public ServicesContextFactory(IOptions<DataBaseSettings> options)
         {
-            _connection = connection;
+            _dataBaseSettings = options.Value;
         }
 
         public ServicesContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ServicesContext>();
-
-            optionsBuilder.UseSqlServer(_connection.ConnectionString,
+            var optionsBuilder = new DbContextOptionsBuilder<ServicesContext>()
+                .UseSqlServer(_dataBaseSettings.ConnectionString,
                 op => op.MigrationsAssembly(typeof(ServicesContextFactory).Assembly.FullName));
 
             return new ServicesContext(optionsBuilder.Options);

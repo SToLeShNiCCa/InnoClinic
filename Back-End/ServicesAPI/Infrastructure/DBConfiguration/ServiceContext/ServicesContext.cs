@@ -10,11 +10,15 @@ namespace Infrastructure.DBConfiguration.ServiceContext
         {
         }
 
+        public ServicesContext()
+        { }
+
         public DbSet<Service> Services { get; set; }
         public DbSet<ServiceCategory> ServiceCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ServicesContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
 
