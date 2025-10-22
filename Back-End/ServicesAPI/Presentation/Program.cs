@@ -19,8 +19,6 @@ builder.Services.AddProgramServices();
 
 var app = builder.Build();
 
-app.UseMiddleware<ExceptionHandlerMiddleware>();
-
 app.UseProgramConfiguration(app.Environment);
 
 app.MapControllers();

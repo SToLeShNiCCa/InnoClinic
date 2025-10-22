@@ -1,5 +1,6 @@
 ﻿using Infrastructure.DBConfiguration.ServiceContext;
 using Microsoft.EntityFrameworkCore;
+using Presentation.Shared.Exceptions;
 
 namespace Presentation.Extension
 {
@@ -29,6 +30,7 @@ namespace Presentation.Extension
         {
             app.UseHttpsRedirection();
             app.UseAuthorization();
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             return app;
         }
