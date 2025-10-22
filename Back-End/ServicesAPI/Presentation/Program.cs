@@ -2,6 +2,7 @@ using Application.Extension;
 using Infrastructure.DBConfiguration.DBSettings;
 using Infrastructure.Extension;
 using Presentation.Extension;
+using Presentation.Shared.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,8 @@ builder.Services.AddApplicationLayer();
 builder.Services.AddProgramServices();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.UseProgramConfiguration(app.Environment);
 
