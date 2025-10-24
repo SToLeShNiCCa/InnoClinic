@@ -6,9 +6,9 @@
         public int TotalPages { get; set; }
         public int PageSize { get; set; }
         public int TotalRecords { get; set; }
-        public IEnumerable<T> Data { get; set; }
+        public IReadOnlyCollection<T> Data { get; set; }
 
-        public PaginatedResult(IEnumerable<T> data, int pageNumber, int pageSize, int totalRecords)
+        public PaginatedResult(IReadOnlyCollection<T> data, int pageNumber, int pageSize, int totalRecords)
         {
             PageNumber = pageNumber;
             TotalPages = totalRecords;
