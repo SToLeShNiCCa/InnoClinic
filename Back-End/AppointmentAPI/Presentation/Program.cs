@@ -1,29 +1,23 @@
+using Application.Extension;
 using Infrastructure.DBSettings.DatabaseSettings;
+using Infrastructure.Extension;
+using Presentation.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration
     .AddJsonFile("appsettings.json")
-    .AddJsonFile($"appsettings{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true);
+    .AddJsonFile($"appsettings{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
+    .Build();
 
 builder.Services.Configure<DataBaseSettings>(builder.Configuration.GetSection(nameof(DataBaseSettings)));
 
-builder.Services.AddControllers();
-
-builder.Services.AddOpenApi();
+builder.Services.AddInfrastructureLayer();
+builder.Services.AddApplicationLayer();
+builder.Services.AddProgramServices();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
+app.UseProgramConfiguration(app.Environment);
 
 app.Run();
