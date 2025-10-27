@@ -9,7 +9,7 @@ namespace Infrastructure.DBSettings.DBContext
             : base(options)
         {
         }
-        DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -7,7 +7,7 @@ namespace Infrastructure.Repository.Interface
     {
         Task<Appointment?> GetByIdAsync(int id, CancellationToken token);
         Task<PaginatedResult<Appointment>> GetAllAsync(PageInfo pageInfo, CancellationToken token);
-        Task<Appointment> CreateAsync(Appointment appointment, CancellationToken token);
+        Task CreateAsync(Appointment appointment, CancellationToken token);
         void Delete(Appointment appointment);
         Task SaveChangesAsync(CancellationToken token);
     }

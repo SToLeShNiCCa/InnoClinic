@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using Application.DTO;
+using AutoMapper;
+using Domain.Models;
 
 namespace Presentation.Mapper
 {
@@ -6,14 +8,14 @@ namespace Presentation.Mapper
     {
         public AppointmentMapper()
         {
-            CreateMap<>();
-            CreateMap<>();
+            CreateMap<ReadAppointmentDTO, Appointment>();
+            CreateMap<Appointment, ReadAppointmentDTO>();
 
-            CreateMap<>();
-            CreateMap<>();
+            CreateMap<CreateAppointmentDTO, Appointment>();
+            CreateMap<Appointment, CreateAppointmentDTO>();
 
-            CreateMap<>();
-            CreateMap<>();
+            CreateMap<UpdateAppointmentDTO, Appointment>();
+            CreateMap<Appointment, UpdateAppointmentDTO>();
         }
     }
 }
