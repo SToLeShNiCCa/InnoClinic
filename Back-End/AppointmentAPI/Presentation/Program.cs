@@ -20,4 +20,6 @@ var app = builder.Build();
 
 app.UseProgramConfiguration(app.Environment);
 
+app.MapControllers();
+
 app.Run();

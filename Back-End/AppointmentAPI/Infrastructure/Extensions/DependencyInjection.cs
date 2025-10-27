@@ -1,26 +1,35 @@
 ﻿using Infrastructure.DBSettings.DatabaseSettings;
 using Infrastructure.DBSettings.DBContext;
+using Infrastructure.Repository.Implementation;
+using Infrastructure.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System.Runtime.CompilerServices;
 
 namespace Infrastructure.Extensions
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructureLayer(this IServiceCollection service)
+        public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services)
         {
-            return service.DbConfiguration();
+            return services
+                .DbConfiguration()
+                .AddRepository();
         }
 
-        private static IServiceCollection DbConfiguration(this IServiceCollection service)
+        private static IServiceCollection DbConfiguration(this IServiceCollection services)
         {
-            var dbSettings = service.BuildServiceProvider().GetRequiredService<IOptions<DataBaseSettings>>().Value;
+            var dbSettings = services.BuildServiceProvider().GetRequiredService<IOptions<DataBaseSettings>>().Value;
 
-            service.AddDbContext<AppointmentDbContext>(p => p.UseNpgsql(dbSettings.ConnectionString));
+            services.AddDbContext<AppointmentDbContext>(p => p.UseNpgsql(dbSettings.ConnectionString));
 
-            return service;
+            return services;
+        }
+        private static IServiceCollection AddRepository(this IServiceCollection services)
+        {
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+
+            return services;
         }
     }
 }
