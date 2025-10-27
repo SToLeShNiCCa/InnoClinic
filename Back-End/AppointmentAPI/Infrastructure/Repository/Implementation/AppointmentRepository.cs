@@ -28,8 +28,8 @@ namespace Infrastructure.Repository.Implementation
         public async Task<PaginatedResult<Appointment>> GetAllAsync(PageInfo pageInfo, CancellationToken token)
         {
             var query = _context.Appointments
-                .AsQueryable()
-                .AsNoTracking();
+                .AsNoTracking()
+                .AsQueryable();
 
             var totalRecords = await _context.Appointments.CountAsync(token);
 

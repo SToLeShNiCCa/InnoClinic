@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  presentation:
+    build:
+      context: .
+      dockerfile: Presentation/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    env_file:
+    - .env
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=AppointmentAPI
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
