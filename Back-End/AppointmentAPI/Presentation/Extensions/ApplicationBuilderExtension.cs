@@ -1,6 +1,6 @@
 ﻿using Infrastructure.DBSettings.DBContext;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Presentation.Share;
 
 namespace Presentation.Extensions
 {
