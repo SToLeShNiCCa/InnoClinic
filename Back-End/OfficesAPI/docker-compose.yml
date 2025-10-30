@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+    restart: unless-stopped
+    command: mongod --bind_ip_all
+
+  presentation:
+    image: ${DOCKER_REGISTRY-}presentation
+    build:
+      context: .
+      dockerfile: Presentation/Dockerfile
+    container_name: presentation-app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - DatabaseSettings__ConnectionString=mongodb://mongodb:27017
+      - DatabaseSettings__DatabaseName=OfficesAPI
+      - DatabaseSettings__OfficesCollectionName=Offices
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
