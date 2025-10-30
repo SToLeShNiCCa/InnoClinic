@@ -1,6 +1,5 @@
 ﻿using Application.DTO;
 using Application.DTO.Result;
-using Domain.Models;
 using Domain.Models.PageModels;
 
 namespace Application.Services.Interface

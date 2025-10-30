@@ -5,7 +5,6 @@ using Infrastructure.Repository.Interface;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using ZstdSharp;
 
 namespace Infrastructure.Repository.Implementation
 {

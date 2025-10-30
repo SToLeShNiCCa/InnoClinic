@@ -1,7 +1,6 @@
 ﻿using Application.Services.Implementation;
 using Application.Services.Interface;
 using Microsoft.Extensions.DependencyInjection;
-using System.Runtime.CompilerServices;
 
 namespace Application.Extension
 {
