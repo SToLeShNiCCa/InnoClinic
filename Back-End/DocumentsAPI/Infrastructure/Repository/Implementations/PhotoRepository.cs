@@ -21,14 +21,14 @@ namespace Infrastructure.Repository.Implementations
             _collection = mongoDatabase.GetCollection<Photo>(
                 settings.Value.CollectionName);
         }
-        public async Task AddAsync(Photo photo, CancellationToken token)
+        public async Task CreateAsync(Photo photo, CancellationToken token)
         {
             await _collection.InsertOneAsync(photo);
         }
 
-        public async Task DeleteAsync(string url, CancellationToken token)
+        public async Task DeleteAsync(string id, CancellationToken token)
         {
-            await _collection.DeleteOneAsync(p => p.Url == url, token);
+            await _collection.DeleteOneAsync(p => p.Id == id, token);
         }
 
         public async Task<PaginatedResult<Photo>> GetAllAsync(PageInfo pageInfo, CancellationToken token)
@@ -50,14 +50,14 @@ namespace Infrastructure.Repository.Implementations
                 );
         }
 
-        public async Task<Photo?> GetByUrlAsync(string url, CancellationToken token)
+        public async Task<Photo?> GetByIdAsync(string id, CancellationToken token)
         {
-            return await _collection.Find(photo => photo.Url == url).FirstOrDefaultAsync(token);
+            return await _collection.Find(photo => photo.Id == id).FirstOrDefaultAsync(token);
         }
 
-        public async Task UpdateAsync(string url, Photo newPhoto, CancellationToken token)
+        public async Task UpdateAsync(string id, Photo newPhoto, CancellationToken token)
         {
-            await _collection.ReplaceOneAsync(photo => photo.Url == url, newPhoto);
+            await _collection.ReplaceOneAsync(photo => photo.Id == id, newPhoto);
         }
     }
 }
