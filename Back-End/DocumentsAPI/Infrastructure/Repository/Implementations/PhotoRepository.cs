@@ -9,7 +9,7 @@ namespace Infrastructure.Repository.Implementations
 {
     public class PhotoRepository : IPhotoRepository
     {
-        public readonly IMongoCollection<Photo> _collection;
+        private readonly IMongoCollection<Photo> _collection;
         public PhotoRepository(IOptions<DatabaseSettings> settings)
         {
             var mongoClient = new MongoClient(
