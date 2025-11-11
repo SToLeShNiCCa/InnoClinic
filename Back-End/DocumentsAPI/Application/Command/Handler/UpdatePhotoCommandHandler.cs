@@ -1,10 +1,15 @@
 ﻿using Domain.Models;
 using Infrastructure.Repository.Interfaces;
 using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Application.Command.Handler
 {
-    public class UpdatePhotoCommandHandler : IRequestHandler<UpdatePhotoCommand, Unit>
+    public class UpdatePhotoCommandHandler : IRequestHandler<UpdatePhotoCommand, string>
     {
         private readonly IPhotoRepository _photoRepository;
 
@@ -13,17 +18,11 @@ namespace Application.Command.Handler
             _photoRepository = photoRepository;
         }
 
-        public async Task<Unit> Handle(UpdatePhotoCommand request, CancellationToken token)
+        public async Task<string> Handle(UpdatePhotoCommand request, CancellationToken cancellationToken)
         {
-            var photo = await _photoRepository.GetByIdAsync(request.Id, token);
-
-            var newPhoto = new Photo()
-            {
-                Id = photo.Id,
-                Url = request.Url
-            };
-            await _photoRepository.UpdateAsync(request.Id, newPhoto, token);
-            return Unit.Value;
+            var photo = new Photo(request.Url);
+            await _photoRepository.CreateAsync(photo);
+            return photo.Id;
         }
     }
 }
