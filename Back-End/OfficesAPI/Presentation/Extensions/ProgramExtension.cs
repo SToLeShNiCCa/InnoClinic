@@ -11,7 +11,6 @@ namespace Presentation.Extensions
 
         private static IServiceCollection UseProgramSettings(this IServiceCollection services)
         {
-            services.AddAutoMapper(cfg => { }, Assembly.GetExecutingAssembly());
             services
                 .AddControllers()
                 .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);

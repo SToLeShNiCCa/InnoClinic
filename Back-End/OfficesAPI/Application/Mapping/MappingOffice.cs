@@ -2,7 +2,7 @@
 using AutoMapper;
 using Domain.Models;
 
-namespace Presentation.Mapping
+namespace Application.Mapping
 {
     public class MappingOffice : Profile
     {
