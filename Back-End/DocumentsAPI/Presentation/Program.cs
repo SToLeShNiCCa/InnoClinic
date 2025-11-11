@@ -1,5 +1,7 @@
 using Azure.Storage.Blobs;
 using Infrastructure.DbSettings;
+using Infrastructure.Repository.Implementations;
+using Infrastructure.Repository.Interfaces;
 using Microsoft.Extensions.Azure;
 
 
@@ -10,6 +12,13 @@ builder.Configuration
     .AddJsonFile("appsettings.json")
     .AddJsonFile($"appsettings{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
     .Build();
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Application.Command.CreatePhotoCommand).Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Application.Command.UpdatePhotoCommand).Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Application.Command.DeletePhotoCommand).Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Application.Query.GetPhotoByIdQuery).Assembly));
+
+builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
 
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
 
