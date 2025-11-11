@@ -1,5 +1,4 @@
 ﻿using Domain.Models;
-using Domain.Models.PageModels;
 using Infrastructure.DbSettings;
 using Infrastructure.Repository.Interfaces;
 using Microsoft.Extensions.Options;
@@ -29,25 +28,6 @@ namespace Infrastructure.Repository.Implementations
         public async Task DeleteAsync(string id, CancellationToken token)
         {
             await _collection.DeleteOneAsync(p => p.Id == id, token);
-        }
-
-        public async Task<PaginatedResult<Photo>> GetAllAsync(PageInfo pageInfo, CancellationToken token)
-        {
-            var totalRecords = await _collection.CountDocumentsAsync(_ => true);
-
-            var offices = await _collection
-                .Find(_ => true)
-                .Skip((pageInfo.Page - 1) * pageInfo.ItemsPerPage)
-                .Limit(pageInfo.ItemsPerPage)
-                .ToListAsync(token);
-
-            return new PaginatedResult<Photo>
-                (
-                offices,
-                pageInfo.Page,
-                pageInfo.ItemsPerPage,
-                totalRecords
-                );
         }
 
         public async Task<Photo?> GetByIdAsync(string id, CancellationToken token)

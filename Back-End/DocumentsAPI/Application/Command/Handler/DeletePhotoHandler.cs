@@ -14,9 +14,8 @@ namespace Application.Command.Handler
 
         public async Task<Unit> Handle(DeletePhotoCommand request, CancellationToken token)
         {
-            var photo = await _photoRepository.GetByIdAsync(request.Id, token);
-
             await _photoRepository.DeleteAsync(request.Id, token);
+
             return Unit.Value;
         }
     }
