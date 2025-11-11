@@ -1,10 +1,9 @@
-﻿using Application.Command;
-using Application.DTO;
-using Application.Query;
+﻿using Application.DTO;
+using Application.MongoCQ.Command;
+using Application.MongoCQ.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Requests;
-using System.Runtime.InteropServices;
 
 namespace Presentation.Controllers
 {

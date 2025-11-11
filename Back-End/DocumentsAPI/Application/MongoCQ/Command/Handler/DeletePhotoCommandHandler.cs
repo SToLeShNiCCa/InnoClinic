@@ -1,7 +1,7 @@
 ﻿using Infrastructure.Repository.Interfaces;
 using MediatR;
 
-namespace Application.Command.Handler
+namespace Application.MongoCQ.Command.Handler
 {
     public class DeletePhotoCommandHandler : IRequestHandler<DeletePhotoCommand, Unit>
     {

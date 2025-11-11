@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.Command
+namespace Application.MongoCQ.Command
 {
     public record CreatePhotoCommand(string Url) : IRequest<string>;
 }

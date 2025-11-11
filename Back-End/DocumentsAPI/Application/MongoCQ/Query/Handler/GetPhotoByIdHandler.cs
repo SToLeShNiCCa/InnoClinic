@@ -1,8 +1,9 @@
 ﻿using Application.DTO;
+using Application.MongoCQ.Query;
 using Infrastructure.Repository.Interfaces;
 using MediatR;
 
-namespace Application.Query.Handler
+namespace Application.MongoCQ.Query.Handler
 {
     public class GetPhotoByIdHandler : IRequestHandler<GetPhotoByIdQuery, PhotoDTO>
     {
