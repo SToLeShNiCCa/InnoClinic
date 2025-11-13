@@ -1,53 +1,43 @@
-using Application.MongoCQ.Command;
-using Application.MongoCQ.Query;
-using Azure.Storage.Blobs;
 using Infrastructure.DbSettings;
 using Infrastructure.Repository.Implementations;
 using Infrastructure.Repository.Interfaces;
 using Microsoft.Extensions.Azure;
-using System.Reflection;
-
+using Azure.Storage.Blobs;
+using Infrastructure.BlobRepository.Interface;
+using Infrastructure.BlobRepository.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Configuration
     .AddJsonFile("appsettings.json")
     .AddJsonFile($"appsettings{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
     .Build();
 
-//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreatePhotoCommand).Assembly));
-//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(UpdatePhotoCommand).Assembly));
-//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DeletePhotoCommand).Assembly));
-//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetPhotoByIdQuery).Assembly));
-
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Application.BlobCQ.Command.AzureUploadPhotoCommand).Assembly));
 
 builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
-
+builder.Services.AddScoped<IBlobRepository, BlobRepository>();
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
 
-builder.Services.AddSingleton(_ => new BlobServiceClient(builder.Configuration.GetConnectionString("BlobStorage")));
+builder.Services.AddSingleton(_ => new BlobServiceClient("UseDevelopmentStorage=true"));
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddAzureClients(clientBuilder =>
-{
-    clientBuilder.AddBlobServiceClient(builder.Configuration["StorageConnectionString:blobServiceUri"]!).WithName("StorageConnectionString");
-    clientBuilder.AddQueueServiceClient(builder.Configuration["StorageConnectionString:queueServiceUri"]!).WithName("StorageConnectionString");
-    clientBuilder.AddTableServiceClient(builder.Configuration["StorageConnectionString:tableServiceUri"]!).WithName("StorageConnectionString");
-});
 
 builder.Services.AddSwaggerGen();
+builder.Services.AddAzureClients(clientBuilder =>
+{
+    clientBuilder.AddBlobServiceClient(builder.Configuration["StorageConnection:blobServiceUri"]!).WithName("StorageConnection");
+    clientBuilder.AddQueueServiceClient(builder.Configuration["StorageConnection:queueServiceUri"]!).WithName("StorageConnection");
+    clientBuilder.AddTableServiceClient(builder.Configuration["StorageConnection:tableServiceUri"]!).WithName("StorageConnection");
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();

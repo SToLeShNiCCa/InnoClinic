@@ -7,16 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AzureDeletePhotoCommandHandler.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="15.1.0" />
     <PackageReference Include="MediatR" Version="13.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="BlobCQ\Query\" />
   </ItemGroup>
 
 </Project>

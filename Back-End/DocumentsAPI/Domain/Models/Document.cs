@@ -2,7 +2,7 @@
 {
     public class Document
     {
-        public string Url { get; set; }
+        public string Url { get; set; } = default!;
         public int ResultId { get; set; }
     }
 }

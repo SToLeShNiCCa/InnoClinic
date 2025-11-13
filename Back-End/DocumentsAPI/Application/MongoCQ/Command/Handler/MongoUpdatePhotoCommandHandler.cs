@@ -5,16 +5,16 @@ using MediatR;
 
 namespace Application.MongoCQ.Command.Handler
 {
-    public class UpdatePhotoCommandHandler : IRequestHandler<UpdatePhotoCommand, Unit>
+    public class MongoUpdatePhotoCommandHandler : IRequestHandler<MongoUpdatePhotoCommand, Unit>
     {
         private readonly IPhotoRepository _photoRepository;
 
-        public UpdatePhotoCommandHandler(IPhotoRepository photoRepository)
+        public MongoUpdatePhotoCommandHandler(IPhotoRepository photoRepository)
         {
             _photoRepository = photoRepository;
         }
 
-        public async Task<Unit> Handle(UpdatePhotoCommand request, CancellationToken token)
+        public async Task<Unit> Handle(MongoUpdatePhotoCommand request, CancellationToken token)
         {
             var photo = new Photo()
             {
