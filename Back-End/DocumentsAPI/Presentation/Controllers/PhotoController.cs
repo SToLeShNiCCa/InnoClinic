@@ -21,10 +21,10 @@ namespace Presentation.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<PhotoDTO>> GetPhoto(string id)
+        public async Task<ActionResult<PhotoDTO>> GetPhoto(string id, CancellationToken token)
         {
             var query = new MongoGetPhotoByIdQuery(id);
-            var photo = await _mediator.Send(query);
+            var photo = await _mediator.Send(query, token);
 
             return Ok(photo);
         }
@@ -33,12 +33,12 @@ namespace Presentation.Controllers
         public async Task<ActionResult<PhotoResponse>> UploadPhoto([FromForm] UploadPhotoRequest request, CancellationToken token)
         {
             await using var stream = request.File.OpenReadStream();
-            var command = new AzureUploadPhotoCommand(stream, request.File.ContentType, HttpContext.RequestAborted);
+            var command = new AzureUploadPhotoCommand(stream, request.File.ContentType);
 
-            var azureFileId = await _mediator.Send(command);
+            var azureFileId = await _mediator.Send(command, token);
 
-            var urlQuery = new AzureGetPhotoNameQuery(azureFileId, token);
-            var url = await _mediator.Send(urlQuery);
+            var urlQuery = new AzureGetPhotoNameQuery(azureFileId);
+            var url = await _mediator.Send(urlQuery, token);
 
             var createPhotoCommand = new MongoCreatePhotoCommand(url);
             var mongoPhotoId = await _mediator.Send(createPhotoCommand);
@@ -58,16 +58,16 @@ namespace Presentation.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeletePhoto(string id)
+        public async Task<ActionResult> DeletePhoto(string id,CancellationToken token)
         {
             var query = new MongoGetPhotoByIdQuery(id);
-            var photoId = await _mediator.Send(query);
+            var photoId = await _mediator.Send(query, token);
 
             var command = new MongoDeletePhotoCommand(id);
-            await _mediator.Send(command);
+            await _mediator.Send(command, token);
 
-            var deleteCommand = new AzureDeletePhotoCommand(Guid.Parse(photoId.Url), HttpContext.RequestAborted);
-            await _mediator.Send(deleteCommand);
+            var deleteCommand = new AzureDeletePhotoCommand(Guid.Parse(photoId.Url));
+            await _mediator.Send(deleteCommand, token);
 
             return NoContent();
         }

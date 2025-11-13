@@ -1,4 +1,4 @@
-﻿using Infrastructure.Repository.Interfaces;
+﻿using Infrastructure.MongoRepository.Interfaces;
 using MediatR;
 
 namespace Application.MongoCQ.Command.Handler

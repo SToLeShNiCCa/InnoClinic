@@ -1,15 +1,15 @@
 ﻿using Domain.Models;
 using Infrastructure.DbSettings;
-using Infrastructure.Repository.Interfaces;
+using Infrastructure.MongoRepository.Interfaces;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace Infrastructure.Repository.Implementations
+namespace Infrastructure.MongoRepository.Implementations
 {
     public class PhotoRepository : IPhotoRepository
     {
         private readonly IMongoCollection<Photo> _collection;
-        public PhotoRepository(IOptions<DatabaseSettings> settings)
+        public PhotoRepository(IOptions<DbSettings.MongoDatabaseSettings> settings)
         {
             var mongoClient = new MongoClient(
                 settings.Value.ConnectionString);

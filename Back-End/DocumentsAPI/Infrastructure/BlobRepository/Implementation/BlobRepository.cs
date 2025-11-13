@@ -1,7 +1,7 @@
 ﻿using Azure.Storage.Blobs;
-using Infrastructure.BlobRepository.Interface;
+using Infrastructure.BLOBRepository.Interface;
 
-namespace Infrastructure.BlobRepository.Implementation
+namespace Infrastructure.BLOBRepository.Implementation
 {
     public class BlobRepository(BlobServiceClient blobServiceClient) : IBlobRepository
     {

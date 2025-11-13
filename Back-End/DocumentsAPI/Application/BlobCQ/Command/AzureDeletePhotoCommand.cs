@@ -2,5 +2,5 @@
 
 namespace Application.BlobCQ.Command
 {
-    public record class AzureDeletePhotoCommand(Guid fileId, CancellationToken token): IRequest<Unit>;
+    public record class AzureDeletePhotoCommand(Guid fileId): IRequest<Unit>;
 }

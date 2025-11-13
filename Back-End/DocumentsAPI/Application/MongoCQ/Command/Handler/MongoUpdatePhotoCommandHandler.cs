@@ -1,6 +1,5 @@
-﻿using Application.MongoCQ.Command;
-using Domain.Models;
-using Infrastructure.Repository.Interfaces;
+﻿using Domain.Models;
+using Infrastructure.MongoRepository.Interfaces;
 using MediatR;
 
 namespace Application.MongoCQ.Command.Handler

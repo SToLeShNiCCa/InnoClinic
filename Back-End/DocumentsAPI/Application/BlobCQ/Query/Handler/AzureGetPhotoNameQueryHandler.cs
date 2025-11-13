@@ -1,4 +1,4 @@
-﻿using Infrastructure.BlobRepository.Interface;
+﻿using Infrastructure.BLOBRepository.Interface;
 using MediatR;
 
 namespace Application.BlobCQ.Query.Handler

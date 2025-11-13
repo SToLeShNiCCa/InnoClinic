@@ -1,6 +1,6 @@
 ﻿using Domain.Models;
 
-namespace Infrastructure.Repository.Interfaces
+namespace Infrastructure.MongoRepository.Interfaces
 {
     public interface IPhotoRepository
     {

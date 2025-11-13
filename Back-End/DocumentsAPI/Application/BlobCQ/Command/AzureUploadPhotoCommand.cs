@@ -2,5 +2,5 @@
 
 namespace Application.BlobCQ.Command
 {
-    public record class AzureUploadPhotoCommand(Stream Stream, string ContentType, CancellationToken Token) : IRequest<Guid>;
+    public record class AzureUploadPhotoCommand(Stream Stream, string ContentType) : IRequest<Guid>;
 }

@@ -1,5 +1,5 @@
 ﻿using Azure.Storage.Blobs.Models;
-using Infrastructure.BlobRepository.Interface;
+using Infrastructure.BLOBRepository.Interface;
 using MediatR;
 
 namespace Application.BlobCQ.Command.Handler
@@ -11,7 +11,7 @@ namespace Application.BlobCQ.Command.Handler
         {
             _blobRepository = blobRepository;
         }
-        public async Task<Guid> Handle(AzureUploadPhotoCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(AzureUploadPhotoCommand request, CancellationToken token)
         {
             var fileId = Guid.NewGuid();
             var blobClient = _blobRepository.AddBlobClient(fileId);
@@ -19,7 +19,7 @@ namespace Application.BlobCQ.Command.Handler
             await blobClient.UploadAsync(
                 request.Stream,
                 new BlobHttpHeaders {ContentType = request.ContentType },
-                cancellationToken: request.Token
+                cancellationToken: token
                 );
 
             return fileId;

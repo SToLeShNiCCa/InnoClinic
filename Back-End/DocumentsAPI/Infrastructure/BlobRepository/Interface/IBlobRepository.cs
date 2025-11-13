@@ -1,6 +1,6 @@
 ﻿using Azure.Storage.Blobs;
 
-namespace Infrastructure.BlobRepository.Interface
+namespace Infrastructure.BLOBRepository.Interface
 {
     public interface IBlobRepository
     {

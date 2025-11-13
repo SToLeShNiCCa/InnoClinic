@@ -1,4 +1,4 @@
-﻿using Infrastructure.BlobRepository.Interface;
+﻿using Infrastructure.BLOBRepository.Interface;
 using MediatR;
 
 namespace Application.BlobCQ.Command.Handler
@@ -10,11 +10,11 @@ namespace Application.BlobCQ.Command.Handler
         {
             _blobRepository = blobRepository;
         }
-        public async Task<Unit> Handle(AzureDeletePhotoCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AzureDeletePhotoCommand request, CancellationToken token)
         {
             var blobClient = _blobRepository.AddBlobClient(request.fileId);
 
-            await blobClient.DeleteIfExistsAsync(cancellationToken: request.token);
+            await blobClient.DeleteIfExistsAsync(cancellationToken: token);
 
             return Unit.Value;
         }
