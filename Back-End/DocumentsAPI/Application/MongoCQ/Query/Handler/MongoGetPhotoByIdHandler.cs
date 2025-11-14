@@ -14,7 +14,7 @@ namespace Application.MongoCQ.Query.Handler
         public async Task<PhotoDTO> Handle(MongoGetPhotoByIdQuery request, CancellationToken cancellationToken)
         {
             var photo = await _repository.GetByIdAsync(request.Id, cancellationToken);
-            if (photo == null) throw new Exception("photo is not found");
+            if (photo == null) throw new Exception("photo is not found");//Result
 
             var photoDTO = new PhotoDTO(photo.Url);
 

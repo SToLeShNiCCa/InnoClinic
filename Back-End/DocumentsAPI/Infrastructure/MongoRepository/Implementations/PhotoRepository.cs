@@ -34,10 +34,5 @@ namespace Infrastructure.MongoRepository.Implementations
         {
             return await _collection.Find(photo => photo.Id == id).FirstOrDefaultAsync(token);
         }
-
-        public async Task UpdateAsync(string id, Photo newPhoto, CancellationToken token)
-        {
-            await _collection.ReplaceOneAsync(photo => photo.Id == id, newPhoto);
-        }
     }
 }
