@@ -45,7 +45,7 @@ namespace Application.Coordinator.Handler
             try
             {
                 var createPhotoCommand = new MongoCreatePhotoCommand(url);
-                var mongoPhotoId = await _mediator.Send(createPhotoCommand);
+                var mongoPhotoId = await _mediator.Send(createPhotoCommand, token);
 
                 return mongoPhotoId;
             }

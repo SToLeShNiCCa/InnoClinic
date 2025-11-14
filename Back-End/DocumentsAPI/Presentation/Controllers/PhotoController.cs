@@ -1,9 +1,7 @@
-﻿using Application.BlobCQ.Command;
-using Application.Coordinator;
+﻿using Application.Coordinator;
 using Application.DTO;
 using Application.DTO.Requests;
 using Application.DTO.Response;
-using Application.MongoCQ.Command;
 using Application.MongoCQ.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -12,14 +10,8 @@ namespace Presentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PhotoController : ControllerBase
+    public class PhotoController(IMediator _mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public PhotoController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
         [HttpGet("{id}")]
         public async Task<ActionResult<PhotoDTO>> GetPhoto(string id, CancellationToken token)
         {
@@ -34,6 +26,7 @@ namespace Presentation.Controllers
         {
             var coordinator = new CreatePhotoCoordinatorCommand(request);
             var response = await _mediator.Send(coordinator, token);
+
             return Ok(response);
         }
 
