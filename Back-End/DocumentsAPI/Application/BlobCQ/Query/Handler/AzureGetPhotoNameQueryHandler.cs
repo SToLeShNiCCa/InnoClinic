@@ -14,7 +14,7 @@ namespace Application.BlobCQ.Query.Handler
         {
             var blobClient = _blobRepository.AddBlobClient(request.fileId);
 
-            return Task.FromResult(blobClient.Name);
+            return Task.FromResult(blobClient.Uri.ToString());
         }
     }
 }

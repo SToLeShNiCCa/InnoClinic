@@ -1,5 +1,4 @@
 ﻿using Domain.Models;
-using Infrastructure.DbSettings;
 using Infrastructure.MongoRepository.Interfaces;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;

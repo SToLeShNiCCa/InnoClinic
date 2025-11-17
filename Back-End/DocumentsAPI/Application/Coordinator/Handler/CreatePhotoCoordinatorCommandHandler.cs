@@ -19,7 +19,7 @@ namespace Application.Coordinator.Handler
             var url = await GetPhotoUrlFromAzure(azureFileId, token);
             var mongoPhotoId = await AddDataToMongo(url, azureFileId, token);
 
-            var response = new PhotoResponse(azureFileId, mongoPhotoId);
+            var response = new PhotoResponse(url, mongoPhotoId);
 
             return response;
         }

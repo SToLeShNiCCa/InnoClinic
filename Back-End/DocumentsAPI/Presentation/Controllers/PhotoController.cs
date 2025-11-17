@@ -33,8 +33,8 @@ namespace Presentation.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeletePhoto(string id,CancellationToken token)
         {
-            var command = new DeletePhotoCoordinatorCommand(id);
-            await _mediator.Send(command, token);
+            var coordinator = new DeletePhotoCoordinatorCommand(id);
+            await _mediator.Send(coordinator, token);
 
             return NoContent();
         }
