@@ -26,7 +26,7 @@ namespace Application.Coordinator.Handler
 
         private async Task<string> GetPhotoUrlFromMongo(string id, CancellationToken token)
         {
-            var query = new MongoGetPhotoByIdQuery(id);
+            var query = new MongoGetByIdPhotoQuery(id);
             var photo = await _mediator.Send(query, token);
 
             return photo.Url;

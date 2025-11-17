@@ -1,4 +1,5 @@
 ﻿using Application.DTO;
+using Application.MongoCQ.MongoResultCQ.Command;
 using Application.MongoCQ.MongoResultCQ.Query;
 using Infrastructure.PageSettings;
 using MediatR;
@@ -30,6 +31,31 @@ namespace Presentation.Controllers
         {
             var query = new MongoGetByIdResultQuery(id);
             var result = await _mediator.Send(query, token);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateResult([FromBody] CreateResultDTO resultDTO, CancellationToken token)
+        {
+            var query = new CreateMongoResultCommand(resultDTO);
+            var createdResult = await _mediator.Send(query, token);
+
+            return Ok(createdResult);
+        }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteResult(string id, CancellationToken token)
+        {
+            var command = new DeleteMongoResultCommand(id);
+            var result = await _mediator.Send(command, token);
+
+            return Ok(result);
+        }
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateResult(string id, [FromBody] UpdateResultDTO updatedResultDTO, CancellationToken token)
+        {
+            var command = new UpdateMongoResultCommand(id, updatedResultDTO);
+            var result = await _mediator.Send(command, token);
 
             return Ok(result);
         }

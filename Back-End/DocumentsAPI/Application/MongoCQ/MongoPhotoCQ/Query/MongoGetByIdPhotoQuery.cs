@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Application.MongoCQ.MongoPhotoCQ.Query
 {
-    public record MongoGetPhotoByIdQuery(string Id) : IRequest<PhotoDTO>;
+    public record MongoGetByIdPhotoQuery(string Id) : IRequest<PhotoDTO>;
 }

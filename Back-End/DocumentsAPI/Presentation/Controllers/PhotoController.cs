@@ -22,7 +22,7 @@ namespace Presentation.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PhotoDTO>> GetPhoto(string id, CancellationToken token)
         {
-            var query = new MongoGetPhotoByIdQuery(id);
+            var query = new MongoGetByIdPhotoQuery(id);
             var photo = await _mediator.Send(query, token);
 
             return Ok(photo);
