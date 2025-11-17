@@ -5,6 +5,7 @@ using Infrastructure.MongoRepository.Photos.Interfaces;
 using Infrastructure.MongoRepository.Photos.Implementations;
 using Infrastructure.MongoRepository.Results.Interfaces;
 using Infrastructure.MongoRepository.Results.Implementations;
+using Infrastructure.PDFGenerator.Interface;
 
 namespace Infrastructure.Extension
 {
@@ -21,6 +22,7 @@ namespace Infrastructure.Extension
             services.AddScoped<IBlobRepository, BlobRepository>();
 
             services.AddScoped<IResultRepository, ResultRepository>();
+            services.AddScoped<IPDFGenerator, PDFGenerator.Implementation.PDFGenerator>();
 
             return services;
         }

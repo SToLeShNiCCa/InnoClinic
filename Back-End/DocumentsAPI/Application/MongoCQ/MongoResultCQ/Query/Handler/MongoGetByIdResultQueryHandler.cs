@@ -1,4 +1,4 @@
-﻿using Application.DTO;
+﻿using Application.DTO.ResultDTO;
 using Infrastructure.MongoRepository.Results.Interfaces;
 using Mapster;
 using MediatR;

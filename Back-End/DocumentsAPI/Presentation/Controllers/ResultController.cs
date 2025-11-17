@@ -1,6 +1,7 @@
-﻿using Application.DTO;
+﻿using Application.DTO.ResultDTO;
 using Application.MongoCQ.MongoResultCQ.Command;
 using Application.MongoCQ.MongoResultCQ.Query;
+using Application.PDFGenerationCQ;
 using Infrastructure.PageSettings;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,9 @@ namespace Presentation.Controllers
     [Route("api/[controller]")]
     public class ResultController : ControllerBase
     {
+
         private readonly IMediator _mediator;
+
         public ResultController(IMediator mediator)
         {
             _mediator = mediator;
@@ -41,8 +44,12 @@ namespace Presentation.Controllers
             var query = new CreateMongoResultCommand(resultDTO);
             var createdResult = await _mediator.Send(query, token);
 
-            return Ok(createdResult);
+            var pdfCommand = new PDFGenerationCommand(resultDTO);
+            var report =  await _mediator.Send(pdfCommand, token);
+
+            return File(report.Content, report.ContentType, report.FileName);
         }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteResult(string id, CancellationToken token)
         {
@@ -51,6 +58,7 @@ namespace Presentation.Controllers
 
             return Ok(result);
         }
+
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateResult(string id, [FromBody] UpdateResultDTO updatedResultDTO, CancellationToken token)
         {
