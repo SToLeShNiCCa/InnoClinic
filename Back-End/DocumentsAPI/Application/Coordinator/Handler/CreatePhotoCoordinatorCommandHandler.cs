@@ -1,8 +1,8 @@
-﻿using Application.BlobCQ.Command;
-using Application.BlobCQ.Query;
+﻿using Application.BlobCQ.BlobPhotoCQ.Command;
+using Application.BlobCQ.BlobPhotoCQ.Query;
 using Application.DTO.Response;
 using Application.Exceptions.MongoExceptions;
-using Application.MongoCQ.Command;
+using Application.MongoCQ.MongoPhotoCQ.Command;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 

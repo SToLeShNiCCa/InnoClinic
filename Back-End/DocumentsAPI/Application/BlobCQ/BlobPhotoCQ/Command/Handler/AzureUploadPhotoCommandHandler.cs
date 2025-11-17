@@ -1,8 +1,9 @@
-﻿using Azure.Storage.Blobs.Models;
+﻿using Application.BlobCQ.BlobPhotoCQ.Command;
+using Azure.Storage.Blobs.Models;
 using Infrastructure.BLOBRepository.Interface;
 using MediatR;
 
-namespace Application.BlobCQ.Command.Handler
+namespace Application.BlobCQ.BlobPhotoCQ.Command.Handler
 {
     public class AzureUploadPhotoCommandHandler : IRequestHandler<AzureUploadPhotoCommand, Guid>
     {

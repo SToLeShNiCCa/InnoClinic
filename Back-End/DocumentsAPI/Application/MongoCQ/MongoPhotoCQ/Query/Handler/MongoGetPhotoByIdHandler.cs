@@ -2,7 +2,7 @@
 using Infrastructure.MongoRepository.Photos.Interfaces;
 using MediatR;
 
-namespace Application.MongoCQ.Query.Handler
+namespace Application.MongoCQ.MongoPhotoCQ.Query.Handler
 {
     public class MongoGetPhotoByIdHandler : IRequestHandler<MongoGetPhotoByIdQuery, PhotoDTO>
     {

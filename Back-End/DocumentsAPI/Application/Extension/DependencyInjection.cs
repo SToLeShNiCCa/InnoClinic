@@ -1,4 +1,4 @@
-﻿using Application.BlobCQ.Command;
+﻿using Application.BlobCQ.BlobPhotoCQ.Command;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Extension

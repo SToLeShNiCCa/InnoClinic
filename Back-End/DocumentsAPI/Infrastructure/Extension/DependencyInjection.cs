@@ -1,8 +1,10 @@
 ﻿using Infrastructure.BLOBRepository.Interface;
 using Infrastructure.BLOBRepository.Implementation;
 using Microsoft.Extensions.DependencyInjection;
-using Infrastructure.MongoRepository.Photoes.Implementations;
 using Infrastructure.MongoRepository.Photos.Interfaces;
+using Infrastructure.MongoRepository.Photos.Implementations;
+using Infrastructure.MongoRepository.Results.Interfaces;
+using Infrastructure.MongoRepository.Results.Implementations;
 
 namespace Infrastructure.Extension
 {
@@ -17,6 +19,8 @@ namespace Infrastructure.Extension
         {
             services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IBlobRepository, BlobRepository>();
+
+            services.AddScoped<IResultRepository, ResultRepository>();
 
             return services;
         }

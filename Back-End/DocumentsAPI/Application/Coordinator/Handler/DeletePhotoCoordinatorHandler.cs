@@ -1,6 +1,6 @@
-﻿using Application.BlobCQ.Command;
-using Application.MongoCQ.Command;
-using Application.MongoCQ.Query;
+﻿using Application.BlobCQ.BlobPhotoCQ.Command;
+using Application.MongoCQ.MongoPhotoCQ.Command;
+using Application.MongoCQ.MongoPhotoCQ.Query;
 using MediatR;
 
 namespace Application.Coordinator.Handler

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.BlobCQ.Query
+namespace Application.BlobCQ.BlobPhotoCQ.Query
 {
     public record class AzureGetPhotoNameQuery(Guid fileId) : IRequest<string>;
 }

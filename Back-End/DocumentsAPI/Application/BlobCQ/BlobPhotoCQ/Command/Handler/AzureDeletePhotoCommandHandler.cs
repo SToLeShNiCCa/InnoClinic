@@ -1,7 +1,8 @@
-﻿using Infrastructure.BLOBRepository.Interface;
+﻿using Application.BlobCQ.BlobPhotoCQ.Command;
+using Infrastructure.BLOBRepository.Interface;
 using MediatR;
 
-namespace Application.BlobCQ.Command.Handler
+namespace Application.BlobCQ.BlobPhotoCQ.Command.Handler
 {
     public class AzureDeletePhotoCommandHandler : IRequestHandler<AzureDeletePhotoCommand, Unit>
     {

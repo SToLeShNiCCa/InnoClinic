@@ -1,11 +1,9 @@
-﻿using Application.BlobCQ.Command;
-using System.Configuration;
-
-namespace Presentation.Extensions
+﻿namespace Presentation.Extensions
 {
     public static class PresentationExtension
     {
-        public static IServiceCollection AddPresentation(this IServiceCollection services, IConfigurationBuilder configuration)
+        public static IServiceCollection AddPresentation(
+            this IServiceCollection services, IConfigurationBuilder configuration)
         {
             return services
                 .UseControllers()
@@ -28,7 +26,8 @@ namespace Presentation.Extensions
             return services;
         }
 
-        private static IServiceCollection AddJsonConf(this IServiceCollection services, IConfigurationBuilder configuration)
+        private static IServiceCollection AddJsonConf(
+            this IServiceCollection services, IConfigurationBuilder configuration)
         {
             configuration
                 .AddJsonFile("appsettings.json")

@@ -1,7 +1,8 @@
-﻿using Infrastructure.BLOBRepository.Interface;
+﻿using Application.BlobCQ.BlobPhotoCQ.Query;
+using Infrastructure.BLOBRepository.Interface;
 using MediatR;
 
-namespace Application.BlobCQ.Query.Handler
+namespace Application.BlobCQ.BlobPhotoCQ.Query.Handler
 {
     public class AzureGetPhotoNameQueryHandler : IRequestHandler<AzureGetPhotoNameQuery, string>
     {

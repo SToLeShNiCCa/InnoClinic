@@ -2,7 +2,7 @@
 using Application.DTO;
 using Application.DTO.Requests;
 using Application.DTO.Response;
-using Application.MongoCQ.Query;
+using Application.MongoCQ.MongoPhotoCQ.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

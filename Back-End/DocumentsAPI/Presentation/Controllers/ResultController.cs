@@ -1,0 +1,37 @@
+﻿using Application.DTO;
+using Application.MongoCQ.MongoResultCQ.Query;
+using Infrastructure.PageSettings;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Presentation.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ResultController : ControllerBase
+    {
+        private readonly IMediator _mediator;
+        public ResultController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetAllResults([FromQuery] PageInfo pageInfo, CancellationToken token)
+        {
+            var query = new MongoGetAllResultsQuery(pageInfo);
+            var results = await _mediator.Send(query, token);
+
+            return Ok(results);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetResultById(string id, CancellationToken token)
+        {
+            var query = new MongoGetByIdResultQuery(id);
+            var result = await _mediator.Send(query, token);
+
+            return Ok(result);
+        }
+    }
+}
