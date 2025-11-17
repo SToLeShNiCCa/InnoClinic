@@ -10,8 +10,15 @@ namespace Presentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PhotoController(IMediator _mediator) : ControllerBase
+    public class PhotoController : ControllerBase
     {
+        private readonly IMediator _mediator;
+
+        public PhotoController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<PhotoDTO>> GetPhoto(string id, CancellationToken token)
         {

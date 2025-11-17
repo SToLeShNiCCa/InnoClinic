@@ -1,6 +1,6 @@
 ﻿using Application.Exceptions.MongoExceptions;
 using Domain.Models;
-using Infrastructure.MongoRepository.Interfaces;
+using Infrastructure.MongoRepository.Photos.Interfaces;
 using MediatR;
 
 namespace Application.MongoCQ.Command.Handler

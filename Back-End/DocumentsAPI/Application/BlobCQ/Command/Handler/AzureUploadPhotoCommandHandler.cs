@@ -4,9 +4,13 @@ using MediatR;
 
 namespace Application.BlobCQ.Command.Handler
 {
-    public class AzureUploadPhotoCommandHandler(IBlobRepository _blobRepository)
-        : IRequestHandler<AzureUploadPhotoCommand, Guid>
+    public class AzureUploadPhotoCommandHandler : IRequestHandler<AzureUploadPhotoCommand, Guid>
     {
+        private readonly IBlobRepository _blobRepository;
+        public AzureUploadPhotoCommandHandler(IBlobRepository blobRepository)
+        {
+         _blobRepository = blobRepository;
+        }
         public async Task<Guid> Handle(AzureUploadPhotoCommand request, CancellationToken token)
         {
             var fileId = Guid.NewGuid();

@@ -8,9 +8,15 @@ using Microsoft.AspNetCore.Http;
 
 namespace Application.Coordinator.Handler
 {
-    public class CreatePhotoCoordinatorCommandHandler(IMediator _mediator)
-        : IRequestHandler<CreatePhotoCoordinatorCommand, PhotoResponse>
+    public class CreatePhotoCoordinatorCommandHandler : IRequestHandler<CreatePhotoCoordinatorCommand, PhotoResponse>
     {
+        private readonly IMediator _mediator;
+
+        public CreatePhotoCoordinatorCommandHandler(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         public async Task<PhotoResponse> Handle(CreatePhotoCoordinatorCommand request, CancellationToken token)
         {
             await using var stream = request.Request.File.OpenReadStream();

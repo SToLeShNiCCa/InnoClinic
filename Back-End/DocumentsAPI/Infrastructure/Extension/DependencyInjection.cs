@@ -1,8 +1,8 @@
 ﻿using Infrastructure.BLOBRepository.Interface;
 using Infrastructure.BLOBRepository.Implementation;
-using Infrastructure.MongoRepository.Implementations;
-using Infrastructure.MongoRepository.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using Infrastructure.MongoRepository.Photoes.Implementations;
+using Infrastructure.MongoRepository.Photos.Interfaces;
 
 namespace Infrastructure.Extension
 {

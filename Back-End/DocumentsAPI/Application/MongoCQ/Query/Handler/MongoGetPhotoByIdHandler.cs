@@ -1,12 +1,19 @@
 ﻿using Application.DTO;
-using Infrastructure.MongoRepository.Interfaces;
+using Infrastructure.MongoRepository.Photos.Interfaces;
 using MediatR;
 
 namespace Application.MongoCQ.Query.Handler
 {
-    public class MongoGetPhotoByIdHandler(IPhotoRepository _repository)
-        : IRequestHandler<MongoGetPhotoByIdQuery, PhotoDTO>
+    public class MongoGetPhotoByIdHandler : IRequestHandler<MongoGetPhotoByIdQuery, PhotoDTO>
     {
+
+        private readonly IPhotoRepository _repository;
+
+        public MongoGetPhotoByIdHandler(IPhotoRepository repository)
+        {
+            _repository = repository;
+        }
+
         public async Task<PhotoDTO> Handle(MongoGetPhotoByIdQuery request, CancellationToken cancellationToken)
         {
             var photo = await _repository.GetByIdAsync(request.Id, cancellationToken);

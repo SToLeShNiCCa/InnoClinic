@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.DbSettings
 {
-    public class MongoDatabaseSettings
+    public class ResultsMongoDatabaseSettings
     {
         public string ConnectionString { get; set; } = default!;
         public string DatabaseName { get; set; } = default!;

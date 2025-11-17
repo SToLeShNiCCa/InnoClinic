@@ -1,14 +1,14 @@
 ﻿using Domain.Models;
-using Infrastructure.MongoRepository.Interfaces;
+using Infrastructure.MongoRepository.Photos.Interfaces;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace Infrastructure.MongoRepository.Implementations
+namespace Infrastructure.MongoRepository.Photos.Implementations
 {
     public class PhotoRepository : IPhotoRepository
     {
         private readonly IMongoCollection<Photo> _collection;
-        public PhotoRepository(IOptions<DbSettings.MongoDatabaseSettings> settings)
+        public PhotoRepository(IOptions<DbSettings.PhotosMongoDatabaseSettings> settings)
         {
             var mongoClient = new MongoClient(
                 settings.Value.ConnectionString);
@@ -21,7 +21,7 @@ namespace Infrastructure.MongoRepository.Implementations
         }
         public async Task CreateAsync(Photo photo, CancellationToken token)
         {
-            await _collection.InsertOneAsync(photo);
+            await _collection.InsertOneAsync(photo, cancellationToken: token);
         }
 
         public async Task DeleteAsync(string id, CancellationToken token)

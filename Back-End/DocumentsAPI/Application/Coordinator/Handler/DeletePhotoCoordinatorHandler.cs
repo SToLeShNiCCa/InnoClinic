@@ -5,8 +5,15 @@ using MediatR;
 
 namespace Application.Coordinator.Handler
 {
-    public class DeletePhotoCoordinatorHandler(IMediator _mediator) : IRequestHandler<DeletePhotoCoordinatorCommand, Unit>
+    public class DeletePhotoCoordinatorHandler : IRequestHandler<DeletePhotoCoordinatorCommand, Unit>
     {
+        private readonly IMediator _mediator;
+
+        public DeletePhotoCoordinatorHandler(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         public async Task<Unit> Handle(DeletePhotoCoordinatorCommand request, CancellationToken token)
         {
             var photoId = await GetPhotoUrlFromMongo(request.Id, token);
