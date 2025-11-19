@@ -16,7 +16,7 @@ namespace Application.BlobCQ.BlobPhotoCQ.Command.Handler
 
         public async Task<Unit> Handle(AzureDeletePhotoCommand request, CancellationToken token)
         {
-            var blobClient = _blobRepository.AddBlobClient(request.fileId);
+            var blobClient = _blobRepository.AddPhotoBlobClient(request.fileId);
 
             await blobClient.DeleteIfExistsAsync(cancellationToken: token);
 

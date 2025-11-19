@@ -1,4 +1,4 @@
-﻿using Application.DTO;
+﻿using Application.BlobCQ.BlobDocumentCQ.Command;
 using Domain.Models;
 using Infrastructure.PDFGenerator.Interface;
 using Mapster;
@@ -6,20 +6,25 @@ using MediatR;
 
 namespace Application.PDFGenerationCQ.Handler
 {
-    public class PDFResultGeneratorCommandHandler(IPDFGenerator _pdfGenerator) : IRequestHandler<PDFGenerationCommand, PDFResultDTO>
+    public class PDFResultGeneratorCommandHandler : IRequestHandler<PDFGenerationCommand, string>
     {
+        private readonly IPDFGenerator _pdfGenerator;
+        private readonly IMediator _mediator;
+        public PDFResultGeneratorCommandHandler(IPDFGenerator pdfGenerator, IMediator mediator)
+        {
+            _pdfGenerator = pdfGenerator;
+            _mediator = mediator;
+        }
 
-        public async Task<PDFResultDTO> Handle(PDFGenerationCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(PDFGenerationCommand request, CancellationToken cancellationToken)
         {
             var result = request.Result.Adapt<Result>();
             var pdfBytes = await Task.Run(() => _pdfGenerator.GenerateResultsPdf(result));
 
-            return new PDFResultDTO
-            {
-                Content = pdfBytes,
-                FileName = $"Results_Report_{DateTime.Now:yyyyMMdd_HHmmss}.pdf",
-                ContentType = "application/pdf"
-            };
+            var command = new AzureUploadDocumentCommand(pdfBytes, "application/pdf");
+            var fileId =  await _mediator.Send(command, cancellationToken);
+
+            return fileId;
         }
     }
 }

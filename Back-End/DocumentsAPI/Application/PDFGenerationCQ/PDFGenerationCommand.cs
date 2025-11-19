@@ -5,5 +5,5 @@ using MediatR;
 
 namespace Application.PDFGenerationCQ
 {
-    public record class PDFGenerationCommand(CreateResultDTO Result) : IRequest<PDFResultDTO>;
+    public record class PDFGenerationCommand(CreateResultDTO Result) : IRequest<string>;
 }

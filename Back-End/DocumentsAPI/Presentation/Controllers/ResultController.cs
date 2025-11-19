@@ -41,13 +41,13 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateResult([FromBody] CreateResultDTO resultDTO, CancellationToken token)
         {
-            var query = new CreateMongoResultCommand(resultDTO);
-            var createdResult = await _mediator.Send(query, token);
+            var createCommand = new CreateMongoResultCommand(resultDTO);
+            var createdResult = await _mediator.Send(createCommand, token);
 
-            var pdfCommand = new PDFGenerationCommand(resultDTO);
-            var report =  await _mediator.Send(pdfCommand, token);
+            var command = new PDFGenerationCommand(resultDTO);
+            var pdfFileId = await _mediator.Send(command, token);
 
-            return File(report.Content, report.ContentType, report.FileName);
+            return Ok(pdfFileId);
         }
 
         [HttpDelete("{id}")]

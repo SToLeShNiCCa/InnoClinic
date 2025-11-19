@@ -1,11 +1,11 @@
-﻿using Infrastructure.BLOBRepository.Interface;
-using Infrastructure.BLOBRepository.Implementation;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Infrastructure.MongoRepository.Photos.Interfaces;
 using Infrastructure.MongoRepository.Photos.Implementations;
 using Infrastructure.MongoRepository.Results.Interfaces;
 using Infrastructure.MongoRepository.Results.Implementations;
 using Infrastructure.PDFGenerator.Interface;
+using Infrastructure.BLOBRepository.Interface;
+using Infrastructure.BLOBRepository.Implementation;
 
 namespace Infrastructure.Extension
 {
@@ -19,7 +19,7 @@ namespace Infrastructure.Extension
         private static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IPhotoRepository, PhotoRepository>();
-            services.AddScoped<IBlobRepository, BlobRepository>();
+            services.AddScoped<IBlobRepository, BlobPhotoRepository>();
 
             services.AddScoped<IResultRepository, ResultRepository>();
             services.AddScoped<IPDFGenerator, PDFGenerator.Implementation.PDFGenerator>();

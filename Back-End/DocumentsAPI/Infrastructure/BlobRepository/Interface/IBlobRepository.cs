@@ -4,6 +4,7 @@ namespace Infrastructure.BLOBRepository.Interface
 {
     public interface IBlobRepository
     {
-        BlobClient AddBlobClient(Guid fileId);
+        BlobClient AddPhotoBlobClient(Guid fileId);
+        BlobClient AddDocumentBlobClient(Guid fileId);
     }
 }

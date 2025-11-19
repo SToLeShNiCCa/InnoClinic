@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using Infrastructure.PDFGenerator.Interface;
+using MongoDB.Bson;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -28,7 +29,7 @@ namespace Infrastructure.PDFGenerator.Implementation
                     page.Header()
                         .PaddingBottom(50)
                         .AlignCenter()
-                        .Text("Medical report.")
+                        .Text("Медицинский отчёт.")
                         .SemiBold().FontSize(24).FontColor(Colors.Black);
 
                     page.Content()
@@ -43,13 +44,13 @@ namespace Infrastructure.PDFGenerator.Implementation
                                         columns.RelativeColumn(3);
                                     });
 
-                                    table.Cell().Element(CellStyle).Text("Complaints");
+                                    table.Cell().Element(CellStyle).Text("Жалобы");
                                     table.Cell().Element(CellStyle).Text(result.Complaints);
 
-                                    table.Cell().Element(CellStyle).Text("Conclusion");
+                                    table.Cell().Element(CellStyle).Text("Заключение");
                                     table.Cell().Element(CellStyle).Text(result.Conclusion);
 
-                                    table.Cell().Element(CellStyle).Text("Recommendations");
+                                    table.Cell().Element(CellStyle).Text("Рекомендации");
                                     table.Cell().Element(CellStyle).Text(result.Recommendations);
 
                                     static IContainer CellStyle(IContainer container)
@@ -69,9 +70,10 @@ namespace Infrastructure.PDFGenerator.Implementation
                                     row.RelativeItem()
                                         .Column(signatureColumn =>
                                         {
-                                            signatureColumn.Item().PaddingTop(25).Text("Doctor : ");
-                                            signatureColumn.Item().PaddingTop(5).LineHorizontal(1).LineColor(Colors.Black);
-                                            signatureColumn.Item().PaddingTop(25).Text("_________________________");
+                                            signatureColumn.Item().PaddingTop(25).Text("Врач : ");
+                                            signatureColumn.Item().PaddingTop(1).LineHorizontal(1).LineColor(Colors.Black);
+                                            signatureColumn.Item().PaddingTop(25).Text("Подпись : ");
+                                            signatureColumn.Item().PaddingTop(1).LineHorizontal(1).LineColor(Colors.Black);
                                         });
 
                                     row.RelativeItem()
@@ -82,7 +84,7 @@ namespace Infrastructure.PDFGenerator.Implementation
                                         .AlignRight()
                                         .Column(dateColumn =>
                                         {
-                                            dateColumn.Item().PaddingTop(25).Text("Date").SemiBold().FontSize(11);
+                                            dateColumn.Item().PaddingTop(25).Text("Дата").SemiBold().FontSize(11);
                                             dateColumn.Item().PaddingTop(5).LineHorizontal(1).LineColor(Colors.Black);
                                             dateColumn.Item().PaddingTop(5).Text(DateTime.Now.ToString("(dd.MM.yyyy)"));
                                         });
