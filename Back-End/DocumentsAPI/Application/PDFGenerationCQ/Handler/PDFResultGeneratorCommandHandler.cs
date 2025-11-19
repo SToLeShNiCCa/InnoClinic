@@ -22,9 +22,9 @@ namespace Application.PDFGenerationCQ.Handler
             var pdfBytes = await Task.Run(() => _pdfGenerator.GenerateResultsPdf(result));
 
             var command = new AzureUploadDocumentCommand(pdfBytes, "application/pdf");
-            var fileId =  await _mediator.Send(command, cancellationToken);
+            var url =  await _mediator.Send(command, cancellationToken);
 
-            return fileId;
+            return url;
         }
     }
 }

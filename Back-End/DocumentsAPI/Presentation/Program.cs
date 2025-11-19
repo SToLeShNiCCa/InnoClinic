@@ -13,6 +13,7 @@ builder.Services.AddApplicationLayer();
 
 builder.Services.Configure<PhotosMongoDatabaseSettings>(builder.Configuration.GetSection("PhotosDatabaseSettings"));
 builder.Services.Configure<ResultsMongoDatabaseSettings>(builder.Configuration.GetSection("ResultsDatabaseSettings"));
+builder.Services.Configure<DocumentsMongoDatabaseSettings>(builder.Configuration.GetSection("DocumentsDatabaseSettings"));
 builder.Services.Configure<AzureDatabaseSettings>(builder.Configuration.GetSection("BlobStorage"));
 
 builder.Services.AddSingleton(_ => new BlobServiceClient("UseDevelopmentStorage=true"));

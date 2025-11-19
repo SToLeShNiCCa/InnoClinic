@@ -42,10 +42,12 @@ namespace Presentation.Controllers
         public async Task<ActionResult> CreateResult([FromBody] CreateResultDTO resultDTO, CancellationToken token)
         {
             var createCommand = new CreateMongoResultCommand(resultDTO);
-            var createdResult = await _mediator.Send(createCommand, token);
+            var url = await _mediator.Send(createCommand, token);
 
-            var command = new PDFGenerationCommand(resultDTO);
-            var pdfFileId = await _mediator.Send(command, token);
+            var pdfCommand = new PDFGenerationCommand(resultDTO);
+            var pdfFileId = await _mediator.Send(pdfCommand, token);
+
+
 
             return Ok(pdfFileId);
         }

@@ -8,7 +8,7 @@ namespace Domain.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         [BsonIgnoreIfDefault]
-        public required string Id { get; set; }
+        public string Id { get; set; } = default!;
         public string Complaints { get; set; } = default!;
         public string Conclusion { get; set; } = default!;
         public string Recommendations { get; set; } = default!;
