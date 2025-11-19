@@ -1,4 +1,5 @@
 ﻿using Application.DTO.ResultDTO;
+using Application.MongoCQ.MongoDocumentCQ.Command;
 using Application.MongoCQ.MongoResultCQ.Command;
 using Application.MongoCQ.MongoResultCQ.Query;
 using Application.PDFGenerationCQ;
@@ -42,12 +43,13 @@ namespace Presentation.Controllers
         public async Task<ActionResult> CreateResult([FromBody] CreateResultDTO resultDTO, CancellationToken token)
         {
             var createCommand = new CreateMongoResultCommand(resultDTO);
-            var url = await _mediator.Send(createCommand, token);
+            var resultId = await _mediator.Send(createCommand, token);
 
             var pdfCommand = new PDFGenerationCommand(resultDTO);
             var pdfFileId = await _mediator.Send(pdfCommand, token);
 
-
+            var documentCommand = new MongoCreateDocumentCommand(pdfFileId, resultId);
+            await _mediator.Send(documentCommand, token);
 
             return Ok(pdfFileId);
         }

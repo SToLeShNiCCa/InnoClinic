@@ -1,5 +1,6 @@
 ﻿using Application.DTO;
 using Infrastructure.MongoRepository.Photos.Interfaces;
+using Mapster;
 using MediatR;
 
 namespace Application.MongoCQ.MongoPhotoCQ.Query.Handler
@@ -14,14 +15,12 @@ namespace Application.MongoCQ.MongoPhotoCQ.Query.Handler
             _repository = repository;
         }
 
-        public async Task<PhotoDTO> Handle(MongoGetByIdPhotoQuery request, CancellationToken cancellationToken)
+        public async Task<PhotoDTO> Handle(MongoGetByIdPhotoQuery request, CancellationToken token)
         {
-            var photo = await _repository.GetByIdAsync(request.Id, cancellationToken);
+            var photo = await _repository.GetByIdAsync(request.Id, token);
             if (photo == null) throw new Exception("photo is not found");//Result
 
-            var photoDTO = new PhotoDTO(photo.Url);
-
-            return photoDTO;
+            return photo.Adapt<PhotoDTO>(); ;
         }
     }
 }

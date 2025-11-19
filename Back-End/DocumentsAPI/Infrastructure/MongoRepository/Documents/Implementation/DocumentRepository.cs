@@ -7,7 +7,9 @@ namespace Infrastructure.MongoRepository.Documents.Implementation
 {
     public class DocumentRepository : IDocumentRepository
     {
+
         private readonly IMongoCollection<Document> _collection;
+
         public DocumentRepository(IOptions<DbSettings.DocumentsMongoDatabaseSettings> settings)
         {
             var mongoClient = new MongoClient(
@@ -19,6 +21,7 @@ namespace Infrastructure.MongoRepository.Documents.Implementation
             _collection = mongoDatabase.GetCollection<Document>(
                 settings.Value.CollectionName);
         }
+
         public async Task CreateAsync(Document document, CancellationToken token)
         {
             await _collection.InsertOneAsync(document, cancellationToken: token);

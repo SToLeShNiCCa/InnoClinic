@@ -1,0 +1,24 @@
+﻿using Infrastructure.BLOBRepository.Interface;
+using MediatR;
+
+namespace Application.BlobCQ.BlobDocumentCQ.Command.Handler
+{
+    public class AzureDeleteDocumentCommandHandler : IRequestHandler<AzureDeleteDocumentCommand, Unit>
+    {
+
+        private readonly IBlobRepository _repository;
+
+        public AzureDeleteDocumentCommandHandler(IBlobRepository repository)
+        {
+            _repository = repository;
+        }
+
+        public async Task<Unit> Handle(AzureDeleteDocumentCommand request, CancellationToken token)
+        {
+            var client = _repository.AddDocumentBlobClient(request.documentId);
+            await client.DeleteIfExistsAsync(cancellationToken: token);
+
+            return Unit.Value;
+        }
+    }
+}

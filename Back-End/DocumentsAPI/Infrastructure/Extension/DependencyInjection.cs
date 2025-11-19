@@ -6,6 +6,8 @@ using Infrastructure.MongoRepository.Results.Implementations;
 using Infrastructure.PDFGenerator.Interface;
 using Infrastructure.BLOBRepository.Interface;
 using Infrastructure.BLOBRepository.Implementation;
+using Infrastructure.MongoRepository.Documents.Interface;
+using Infrastructure.MongoRepository.Documents.Implementation;
 
 namespace Infrastructure.Extension
 {
@@ -18,9 +20,9 @@ namespace Infrastructure.Extension
 
         private static IServiceCollection AddRepositories(this IServiceCollection services)
         {
+            services.AddScoped<IDocumentRepository, DocumentRepository>();
             services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IBlobRepository, BlobPhotoRepository>();
-
             services.AddScoped<IResultRepository, ResultRepository>();
             services.AddScoped<IPDFGenerator, PDFGenerator.Implementation.PDFGenerator>();
 
