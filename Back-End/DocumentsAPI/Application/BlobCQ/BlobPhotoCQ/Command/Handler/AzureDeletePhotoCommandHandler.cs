@@ -3,19 +3,12 @@ using MediatR;
 
 namespace Application.BlobCQ.BlobPhotoCQ.Command.Handler
 {
-    public class AzureDeletePhotoCommandHandler : IRequestHandler<AzureDeletePhotoCommand, Unit>
+    public class AzureDeletePhotoCommandHandler(IBlobRepository _repository)
+        : IRequestHandler<AzureDeletePhotoCommand, Unit>
     {
-
-        private readonly IBlobRepository _blobRepository;
-
-        public AzureDeletePhotoCommandHandler(IBlobRepository blobRepository)
-        {
-            _blobRepository = blobRepository;
-        }
-
         public async Task<Unit> Handle(AzureDeletePhotoCommand request, CancellationToken token)
         {
-            var blobClient = _blobRepository.AddPhotoBlobClient(request.fileId);
+            var blobClient = _repository.AddPhotoBlobClient(request.fileId);
 
             await blobClient.DeleteIfExistsAsync(cancellationToken: token);
 

@@ -1,6 +1,5 @@
 ﻿using Domain.Models;
 using Infrastructure.PDFGenerator.Interface;
-using MongoDB.Bson;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;

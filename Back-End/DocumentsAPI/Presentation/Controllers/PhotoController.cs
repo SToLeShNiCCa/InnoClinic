@@ -29,7 +29,8 @@ namespace Presentation.Controllers
         }
 
         [HttpPost("upload")]
-        public async Task<ActionResult<PhotoResponse>> UploadPhoto([FromForm] UploadPhotoRequest request, CancellationToken token)
+        public async Task<ActionResult<PhotoResponse>> UploadPhoto(
+            [FromForm] UploadPhotoRequest request, CancellationToken token)
         {
             var coordinator = new CreatePhotoCoordinatorCommand(request);
             var response = await _mediator.Send(coordinator, token);

@@ -7,7 +7,6 @@ namespace Infrastructure.MongoRepository.Documents.Implementation
 {
     public class DocumentRepository : IDocumentRepository
     {
-
         private readonly IMongoCollection<Document> _collection;
 
         public DocumentRepository(IOptions<DbSettings.DocumentsMongoDatabaseSettings> settings)

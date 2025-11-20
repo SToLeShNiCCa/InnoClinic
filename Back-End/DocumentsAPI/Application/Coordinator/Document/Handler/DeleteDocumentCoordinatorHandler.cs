@@ -2,19 +2,13 @@
 using Application.DTO;
 using Application.MongoCQ.MongoDocumentCQ.Query;
 using Application.MongoCQ.MongoResultCQ.Command;
-using Azure.Core;
 using MediatR;
-using Newtonsoft.Json.Linq;
 
 namespace Application.Coordinator.Document.Handler
 {
-    public class DeleteDocumentCoordinatorHandler : IRequestHandler<DeleteDocumentCoordinatorCommand, Unit>
+    public class DeleteDocumentCoordinatorHandler(IMediator _mediator) 
+        : IRequestHandler<DeleteDocumentCoordinatorCommand, Unit>
     {
-        private readonly IMediator _mediator;
-        public DeleteDocumentCoordinatorHandler(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
         public async Task<Unit> Handle(DeleteDocumentCoordinatorCommand request, CancellationToken token)
         {
             var documentDTO = await GetByIdDocument(request.Id, token);

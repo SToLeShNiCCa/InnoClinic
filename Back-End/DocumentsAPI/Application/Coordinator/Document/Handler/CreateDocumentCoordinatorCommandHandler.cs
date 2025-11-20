@@ -1,21 +1,13 @@
-﻿using Application.DTO.Response;
-using Application.MongoCQ.MongoDocumentCQ.Command;
+﻿using Application.MongoCQ.MongoDocumentCQ.Command;
 using Application.MongoCQ.MongoResultCQ.Command;
 using Application.PDFGenerationCQ;
 using MediatR;
 
 namespace Application.Coordinator.Document.Handler
 {
-    public class CreateDocumentCoordinatorCommandHandler : IRequestHandler<CreateDocumentCoordinatorCommand, string>
+    public class CreateDocumentCoordinatorCommandHandler(IMediator _mediator)
+        : IRequestHandler<CreateDocumentCoordinatorCommand, string>
     {
-
-        private readonly IMediator _mediator;
-
-        public CreateDocumentCoordinatorCommandHandler(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
         public async Task<string> Handle(CreateDocumentCoordinatorCommand request, CancellationToken token)
         {
             var resultId =  await AddResultToMongo(request, token);

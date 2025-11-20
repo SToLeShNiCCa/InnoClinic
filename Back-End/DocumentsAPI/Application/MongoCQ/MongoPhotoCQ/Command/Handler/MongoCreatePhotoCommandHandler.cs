@@ -5,16 +5,9 @@ using MediatR;
 
 namespace Application.MongoCQ.MongoPhotoCQ.Command.Handler
 {
-    public class MongoCreatePhotoCommandHandler : IRequestHandler<MongoCreatePhotoCommand, string>
+    public class MongoCreatePhotoCommandHandler(IPhotoRepository _photoRepository)
+        : IRequestHandler<MongoCreatePhotoCommand, string>
     {
-
-        private readonly IPhotoRepository _photoRepository;
-
-        public MongoCreatePhotoCommandHandler(IPhotoRepository photoRepository)
-        {
-            _photoRepository = photoRepository;
-        }
-
         public async Task<string> Handle(MongoCreatePhotoCommand request, CancellationToken token)
         {
             try

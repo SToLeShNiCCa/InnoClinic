@@ -4,15 +4,9 @@ using MediatR;
 
 namespace Application.MongoCQ.MongoDocumentCQ.Command.Handler
 {
-    public class MongoCreateDocumentCommandHandler : IRequestHandler<MongoCreateDocumentCommand>
+    public class MongoCreateDocumentCommandHandler(IDocumentRepository _repository)
+        : IRequestHandler<MongoCreateDocumentCommand>
     {
-        private readonly IDocumentRepository _repository;
-
-        public MongoCreateDocumentCommandHandler(IDocumentRepository repository)
-        {
-            _repository = repository;
-        }
-
         public async Task Handle(MongoCreateDocumentCommand request, CancellationToken token)
         {
             var document = new Document

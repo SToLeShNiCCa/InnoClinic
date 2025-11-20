@@ -1,6 +1,4 @@
-﻿using Application.DTO.Response;
-using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Application.DTO.Requests
 {

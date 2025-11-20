@@ -4,17 +4,13 @@ using MediatR;
 
 namespace Application.BlobCQ.BlobPhotoCQ.Command.Handler
 {
-    public class AzureUploadPhotoCommandHandler : IRequestHandler<AzureUploadPhotoCommand, Guid>
+    public class AzureUploadPhotoCommandHandler(IBlobRepository _repository)
+        : IRequestHandler<AzureUploadPhotoCommand, Guid>
     {
-        private readonly IBlobRepository _blobRepository;
-        public AzureUploadPhotoCommandHandler(IBlobRepository blobRepository)
-        {
-         _blobRepository = blobRepository;
-        }
         public async Task<Guid> Handle(AzureUploadPhotoCommand request, CancellationToken token)
         {
             var fileId = Guid.NewGuid();
-            var blobClient = _blobRepository.AddPhotoBlobClient(fileId);
+            var blobClient = _repository.AddPhotoBlobClient(fileId);
 
             await blobClient.UploadAsync(
                 request.Stream,

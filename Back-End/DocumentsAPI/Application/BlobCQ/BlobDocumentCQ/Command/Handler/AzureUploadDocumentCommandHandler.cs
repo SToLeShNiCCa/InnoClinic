@@ -4,20 +4,13 @@ using MediatR;
 
 namespace Application.BlobCQ.BlobDocumentCQ.Command.Handler
 {
-    public class AzureUploadDocumentCommandHandler : IRequestHandler<AzureUploadDocumentCommand, string>
+    public class AzureUploadDocumentCommandHandler(IBlobRepository _repository)
+        : IRequestHandler<AzureUploadDocumentCommand, string>
     {
-
-        private readonly IBlobRepository _blobRepository;
-
-        public AzureUploadDocumentCommandHandler(IBlobRepository blobRepository)
-        {
-            _blobRepository = blobRepository;
-        }
-
         public async Task<string> Handle(AzureUploadDocumentCommand request, CancellationToken token)
         {
             var fileId = Guid.NewGuid();
-            var blobClient = _blobRepository.AddDocumentBlobClient(fileId);
+            var blobClient = _repository.AddDocumentBlobClient(fileId);
 
             using var memoryStream = new MemoryStream(request.Bytes);
 

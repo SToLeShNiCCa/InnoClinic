@@ -1,18 +1,13 @@
-﻿using Application.DTO.ResultDTO;
-using Domain.Models;
+﻿using Domain.Models;
 using Infrastructure.MongoRepository.Results.Interfaces;
 using Mapster;
 using MediatR;
 
 namespace Application.MongoCQ.MongoResultCQ.Command.Handler
 {
-    public class CreateMongoResultCommandHandler : IRequestHandler<CreateMongoResultCommand, string>
+    public class CreateMongoResultCommandHandler(IResultRepository _repository)
+        : IRequestHandler<CreateMongoResultCommand, string>
     {
-        private readonly IResultRepository _repository;
-        public CreateMongoResultCommandHandler(IResultRepository repository)
-        {
-            _repository = repository;
-        }
         public async Task<string> Handle(CreateMongoResultCommand request, CancellationToken cancellationToken)
         {
             var result = request.ResultDTO.Adapt<Result>();

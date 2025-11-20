@@ -3,16 +3,9 @@ using MediatR;
 
 namespace Application.BlobCQ.BlobDocumentCQ.Command.Handler
 {
-    public class AzureDeleteDocumentCommandHandler : IRequestHandler<AzureDeleteDocumentCommand, Unit>
+    public class AzureDeleteDocumentCommandHandler(IBlobRepository _repository)
+        : IRequestHandler<AzureDeleteDocumentCommand, Unit>
     {
-
-        private readonly IBlobRepository _repository;
-
-        public AzureDeleteDocumentCommandHandler(IBlobRepository repository)
-        {
-            _repository = repository;
-        }
-
         public async Task<Unit> Handle(AzureDeleteDocumentCommand request, CancellationToken token)
         {
             var client = _repository.AddDocumentBlobClient(request.DocumentId);

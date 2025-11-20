@@ -57,7 +57,8 @@ namespace Presentation.Controllers
         }
 
         [HttpPut("{id}")]//думаем
-        public async Task<ActionResult> UpdateResult(string id, [FromBody] UpdateResultDTO updatedResultDTO, CancellationToken token)
+        public async Task<ActionResult> UpdateResult(
+            string id, [FromBody] UpdateResultDTO updatedResultDTO, CancellationToken token)
         {
             var command = new UpdateMongoResultCommand(id, updatedResultDTO);
             var result = await _mediator.Send(command, token);

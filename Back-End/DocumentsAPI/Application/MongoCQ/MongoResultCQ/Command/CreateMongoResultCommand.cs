@@ -1,5 +1,4 @@
 ﻿using Application.DTO.ResultDTO;
-using Domain.Models;
 using MediatR;
 
 namespace Application.MongoCQ.MongoResultCQ.Command
