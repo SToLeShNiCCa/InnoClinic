@@ -1,27 +1,12 @@
-using Infrastructure.DbSettings;
-using Microsoft.Extensions.Azure;
-using Azure.Storage.Blobs;
 using Presentation.Extensions;
 using Infrastructure.Extension;
 using Application.Extension;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddPresentation(builder.Configuration);
-builder.Services.AddInfrastructureLayer();
+builder.Services.AddPresentation(builder.Configuration, builder.Configuration);
+builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddApplicationLayer();
-
-builder.Services.Configure<PhotosMongoDatabaseSettings>(builder.Configuration.GetSection("PhotosDatabaseSettings"));
-builder.Services.Configure<ResultsMongoDatabaseSettings>(builder.Configuration.GetSection("ResultsDatabaseSettings"));
-builder.Services.Configure<DocumentsMongoDatabaseSettings>(builder.Configuration.GetSection("DocumentsDatabaseSettings"));
-builder.Services.Configure<AzureDatabaseSettings>(builder.Configuration.GetSection("BlobStorage"));
-
-builder.Services.AddSingleton(_ => new BlobServiceClient("UseDevelopmentStorage=true"));
-
-builder.Services.AddAzureClients(clientBuilder =>
-{
-    clientBuilder.AddBlobServiceClient(builder.Configuration["StorageConnection:blobServiceUri"]!).WithName("StorageConnection");
-});
 
 var app = builder.Build();
 

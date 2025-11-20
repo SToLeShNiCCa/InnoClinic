@@ -50,8 +50,8 @@ namespace Presentation.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteResult(string id, CancellationToken token)
         {
-            var command = new DeleteMongoResultCommand(id);
-            var result = await _mediator.Send(command, token);//из блоба тоже удалять надо
+            var command = new DeleteDocumentCoordinatorCommand(id);
+            var result = await _mediator.Send(command, token);
 
             return Ok(result);
         }
