@@ -1,8 +1,7 @@
-﻿using Application.DTO.ResultDTO;
-using Application.MongoCQ.MongoDocumentCQ.Command;
+﻿using Application.Coordinator.Document;
+using Application.DTO.ResultDTO;
 using Application.MongoCQ.MongoResultCQ.Command;
 using Application.MongoCQ.MongoResultCQ.Query;
-using Application.PDFGenerationCQ;
 using Infrastructure.PageSettings;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -42,28 +41,22 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateResult([FromBody] CreateResultDTO resultDTO, CancellationToken token)
         {
-            var createCommand = new CreateMongoResultCommand(resultDTO);
-            var resultId = await _mediator.Send(createCommand, token);
+            var coordinator = new CreateDocumentCoordinatorCommand(resultDTO);
+            var result = await _mediator.Send(coordinator, token);
 
-            var pdfCommand = new PDFGenerationCommand(resultDTO);
-            var pdfFileId = await _mediator.Send(pdfCommand, token);
-
-            var documentCommand = new MongoCreateDocumentCommand(pdfFileId, resultId);
-            await _mediator.Send(documentCommand, token);
-
-            return Ok(pdfFileId);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteResult(string id, CancellationToken token)
         {
             var command = new DeleteMongoResultCommand(id);
-            var result = await _mediator.Send(command, token);
+            var result = await _mediator.Send(command, token);//из блоба тоже удалять надо
 
             return Ok(result);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}")]//думаем
         public async Task<ActionResult> UpdateResult(string id, [FromBody] UpdateResultDTO updatedResultDTO, CancellationToken token)
         {
             var command = new UpdateMongoResultCommand(id, updatedResultDTO);

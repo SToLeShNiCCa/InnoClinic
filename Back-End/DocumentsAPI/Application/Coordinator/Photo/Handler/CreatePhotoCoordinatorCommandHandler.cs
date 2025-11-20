@@ -6,7 +6,7 @@ using Application.MongoCQ.MongoPhotoCQ.Command;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
-namespace Application.Coordinator.Handler
+namespace Application.Coordinator.Photo.Handler
 {
     public class CreatePhotoCoordinatorCommandHandler : IRequestHandler<CreatePhotoCoordinatorCommand, PhotoResponse>
     {

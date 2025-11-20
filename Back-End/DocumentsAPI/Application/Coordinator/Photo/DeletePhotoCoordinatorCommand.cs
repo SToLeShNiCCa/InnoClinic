@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.Coordinator
+namespace Application.Coordinator.Photo
 {
     public record class DeletePhotoCoordinatorCommand(string Id) : IRequest<Unit>;
 }

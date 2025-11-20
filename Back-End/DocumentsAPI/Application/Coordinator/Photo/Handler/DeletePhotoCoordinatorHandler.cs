@@ -3,7 +3,7 @@ using Application.MongoCQ.MongoPhotoCQ.Command;
 using Application.MongoCQ.MongoPhotoCQ.Query;
 using MediatR;
 
-namespace Application.Coordinator.Handler
+namespace Application.Coordinator.Photo.Handler
 {
     public class DeletePhotoCoordinatorHandler : IRequestHandler<DeletePhotoCoordinatorCommand, Unit>
     {
@@ -16,10 +16,10 @@ namespace Application.Coordinator.Handler
 
         public async Task<Unit> Handle(DeletePhotoCoordinatorCommand request, CancellationToken token)
         {
-            var photoId = await GetPhotoUrlFromMongo(request.Id, token);
-
+            var url = await GetPhotoUrlFromMongo(request.Id, token);
             await DeletePhotoFromMongo(request.Id, token);
-            await DeletePhotoFromAzure(Guid.Parse(photoId), token);
+            var photoId = GetGuidFromUrl(url);
+            await DeletePhotoFromAzure(photoId, token);
 
             return Unit.Value;
         }
@@ -42,6 +42,13 @@ namespace Application.Coordinator.Handler
         {
             var deleteCommand = new AzureDeletePhotoCommand(fileId);
             await _mediator.Send(deleteCommand, token);
+        }
+
+        private Guid GetGuidFromUrl(string url)
+        {
+            string result = url.Split('/').Last();
+
+            return Guid.Parse(result);
         }
     }
 }

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.MongoCQ.MongoDocumentCQ.Command.Handler
 {
-    public class MongoCreateDocumentCommandHandler : IRequestHandler<MongoCreateDocumentCommand, string>
+    public class MongoCreateDocumentCommandHandler : IRequestHandler<MongoCreateDocumentCommand>
     {
         private readonly IDocumentRepository _repository;
 
@@ -13,7 +13,7 @@ namespace Application.MongoCQ.MongoDocumentCQ.Command.Handler
             _repository = repository;
         }
 
-        public async Task<string> Handle(MongoCreateDocumentCommand request, CancellationToken token)
+        public async Task Handle(MongoCreateDocumentCommand request, CancellationToken token)
         {
             var document = new Document
             {
@@ -21,8 +21,6 @@ namespace Application.MongoCQ.MongoDocumentCQ.Command.Handler
                 Url = request.Url
             };
             await _repository.CreateAsync(document, token);
-
-            return document.Id;
         }
     }
 }

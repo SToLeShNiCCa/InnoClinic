@@ -15,7 +15,7 @@ namespace Application.BlobCQ.BlobDocumentCQ.Command.Handler
 
         public async Task<Unit> Handle(AzureDeleteDocumentCommand request, CancellationToken token)
         {
-            var client = _repository.AddDocumentBlobClient(request.documentId);
+            var client = _repository.AddDocumentBlobClient(request.DocumentId);
             await client.DeleteIfExistsAsync(cancellationToken: token);
 
             return Unit.Value;

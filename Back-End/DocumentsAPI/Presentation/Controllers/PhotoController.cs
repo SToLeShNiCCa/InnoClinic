@@ -1,4 +1,4 @@
-﻿using Application.Coordinator;
+﻿using Application.Coordinator.Photo;
 using Application.DTO;
 using Application.DTO.Requests;
 using Application.DTO.Response;

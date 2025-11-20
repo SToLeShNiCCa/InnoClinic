@@ -1,5 +1,4 @@
-﻿using Application.BlobCQ.BlobPhotoCQ.Command;
-using Infrastructure.BLOBRepository.Interface;
+﻿using Infrastructure.BLOBRepository.Interface;
 using MediatR;
 
 namespace Application.BlobCQ.BlobPhotoCQ.Command.Handler
