@@ -10,7 +10,7 @@ namespace Application.Coordinator.Document.Handler
     {
         public async Task<string> Handle(CreateDocumentCoordinatorCommand request, CancellationToken token)
         {
-            var resultId =  await AddResultToMongo(request, token);
+            var resultId = await AddResultToMongo(request, token);
             var url = await GeneratePDFMethod(request, token);
             await CreateDocumentInMongo(url, resultId, token);
 

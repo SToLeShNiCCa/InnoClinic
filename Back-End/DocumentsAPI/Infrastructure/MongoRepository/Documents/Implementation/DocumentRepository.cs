@@ -31,9 +31,9 @@ namespace Infrastructure.MongoRepository.Documents.Implementation
             await _collection.DeleteOneAsync(d => d.Id == id, token);
         }
 
-        public async Task<Document?> GetByIdAsync(string id, CancellationToken token)
+        public async Task<Document?> GetByResultIdAsync(string resultId, CancellationToken token)
         {
-            return await _collection.Find(p => p.Id == id).FirstOrDefaultAsync(token);
+            return await _collection.Find(p => p.ResultId == resultId).FirstOrDefaultAsync(token);
         }
     }
 }

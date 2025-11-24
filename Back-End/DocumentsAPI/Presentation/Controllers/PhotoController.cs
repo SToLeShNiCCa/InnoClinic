@@ -4,6 +4,7 @@ using Application.DTO.Requests;
 using Application.DTO.Response;
 using Application.MongoCQ.MongoPhotoCQ.Query;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers

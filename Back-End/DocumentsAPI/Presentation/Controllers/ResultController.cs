@@ -60,9 +60,8 @@ namespace Presentation.Controllers
         public async Task<ActionResult> UpdateResult(
             string id, [FromBody] UpdateResultDTO updatedResultDTO, CancellationToken token)
         {
-            var command = new UpdateMongoResultCommand(id, updatedResultDTO);
+            var command = new UpdateDocumentCoordinatorCommand(id, updatedResultDTO);
             var result = await _mediator.Send(command, token);
-
             return Ok(result);
         }
     }

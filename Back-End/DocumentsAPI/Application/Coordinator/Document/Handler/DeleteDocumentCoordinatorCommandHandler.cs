@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Coordinator.Document.Handler
 {
-    public class DeleteDocumentCoordinatorHandler(IMediator _mediator) 
+    public class DeleteDocumentCoordinatorCommandHandler(IMediator _mediator) 
         : IRequestHandler<DeleteDocumentCoordinatorCommand, Unit>
     {
         public async Task<Unit> Handle(DeleteDocumentCoordinatorCommand request, CancellationToken token)
