@@ -361,3 +361,17 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Back-End/ServicesAPI/Presentation/appsettings.Development.json
+/Back-End/ServicesAPI/Presentation/appsettings.json
+/Back-End/OfficesAPI/Presentation/appsettings.json
+/Back-End/OfficesAPI/Presentation/appsettings.Development.json
+/Back-End/DocumentsAPI/Presentation/appsettings.Development.json
+/Back-End/DocumentsAPI/Presentation/appsettings.json
+/Back-End/DocumentsAPI/Presentation/Properties/launchSettings.json
+/Back-End/DocumentsAPI/Presentation/Properties/serviceDependencies.json
+/Back-End/DocumentsAPI/Presentation/Properties/serviceDependencies.local.json
+/Back-End/AppointmentAPI/Presentation/appsettings.Development.json
+/Back-End/AppointmentAPI/Presentation/appsettings.json
+/Back-End/AppointmentAPI/.env
+/Back-End/AuthAPI/Presentation/appsettings.json
+/Back-End/AuthAPI/Presentation/appsettings.Development.json
