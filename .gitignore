@@ -370,3 +370,6 @@ FodyWeavers.xsd
 /Back-End/DocumentsAPI/Presentation/Properties/launchSettings.json
 /Back-End/DocumentsAPI/Presentation/Properties/serviceDependencies.json
 /Back-End/DocumentsAPI/Presentation/Properties/serviceDependencies.local.json
+/Back-End/AuthAPI/Presentation/appsettings.Development.json
+/Back-End/AuthAPI/Presentation/appsettings.json
+/Back-End/AuthAPI
