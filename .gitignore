@@ -375,3 +375,4 @@ FodyWeavers.xsd
 /Back-End/AppointmentAPI/.env
 /Back-End/AuthAPI/Presentation/appsettings.json
 /Back-End/AuthAPI/Presentation/appsettings.Development.json
+/Back-End/AuthAPI/launchSettings.json
