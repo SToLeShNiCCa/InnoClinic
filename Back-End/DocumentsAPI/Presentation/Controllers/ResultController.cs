@@ -4,6 +4,7 @@ using Application.MongoCQ.MongoResultCQ.Command;
 using Application.MongoCQ.MongoResultCQ.Query;
 using Infrastructure.PageSettings;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
@@ -21,6 +22,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult> GetAllResults([FromQuery] PageInfo pageInfo, CancellationToken token)
         {
             var query = new MongoGetAllResultsQuery(pageInfo);

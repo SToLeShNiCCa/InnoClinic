@@ -1,4 +1,6 @@
 ﻿using Infrastructure.DbSettings;
+using Microsoft.OpenApi.Models;
+using System.Runtime.CompilerServices;
 
 namespace Presentation.Extensions
 {
@@ -10,6 +12,7 @@ namespace Presentation.Extensions
             return services
                 .UseControllers()
                 .AddSwagger()
+                .AddSwaggerGenWithAuth(configuration)
                 .AddJsonConf(configurationBuilder)
                 .AddDbSettings(configuration);
         }
@@ -24,7 +27,6 @@ namespace Presentation.Extensions
         private static IServiceCollection AddSwagger(this IServiceCollection services)
         {
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
 
             return services;
         }
@@ -47,6 +49,51 @@ namespace Presentation.Extensions
             services.Configure<PhotosMongoDatabaseSettings>(configuration.GetSection("PhotosDatabaseSettings"));
             services.Configure<ResultsMongoDatabaseSettings>(configuration.GetSection("ResultsDatabaseSettings"));
             services.Configure<DocumentsMongoDatabaseSettings>(configuration.GetSection("DocumentsDatabaseSettings"));
+
+            return services;
+        }
+
+        private static IServiceCollection AddSwaggerGenWithAuth(this IServiceCollection services,
+            IConfiguration configuration)
+        {
+            services.AddSwaggerGen(o =>
+            {
+                o.CustomSchemaIds(id => id.FullName!.Replace('+', '-'));
+
+                o.AddSecurityDefinition("KeyCloak", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        Implicit = new OpenApiOAuthFlow
+                        {
+                            AuthorizationUrl = new Uri(configuration["KeyCloak:AuthorizationUrl"]!),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                { "openid", "openid"},
+                                { "profile", "profile"}
+                            }
+                        }
+                    }
+                });
+                var securityRequirement = new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "KeyCloak"
+                            },
+                            In = ParameterLocation.Header,
+                            Name = "Bearer",
+                            Scheme = "Bearer"
+                        },[]
+                    }
+                };
+                o.AddSecurityRequirement(securityRequirement);
+            });
 
             return services;
         }
