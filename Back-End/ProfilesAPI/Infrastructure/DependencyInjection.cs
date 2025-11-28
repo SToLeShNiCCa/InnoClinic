@@ -5,6 +5,7 @@ using Infrastructure.Repositories.Implementations;
 using Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Infrastructure;
 
@@ -28,7 +29,7 @@ public static class DependencyInjection
 
     private static IServiceCollection ConfigureDatabase(this IServiceCollection services)
     {
-        var dbSettings = services.BuildServiceProvider().GetRequiredService<DataBaseSettings>();
+        var dbSettings = services.BuildServiceProvider().GetRequiredService<IOptions<DataBaseSettings>>().Value;
 
         services.AddDbContext<ProfilesContext>(builder => builder
                .UseSqlServer(dbSettings.ConnectionString, op => op.MigrationsAssembly(typeof(ProfilesContextFactory).Assembly)));

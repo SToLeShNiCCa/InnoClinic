@@ -5,21 +5,18 @@ using AutoMapper;
 using Domain.DBServices.Models;
 using Domain.DBServices.Models.PaginationModel;
 using Infrastructure.Repositories.Interfaces;
-using Microsoft.Extensions.Localization;
 
 namespace Application.Services.Implementations
 {
     public class DoctorService : IDoctorService
     {
-        private readonly IStringLocalizer _localizer;
         private readonly IDoctorsRepository _repository;
         private readonly IMapper _mapper;
 
-        public DoctorService(IDoctorsRepository repository, IMapper mapper, IStringLocalizer localizer)
+        public DoctorService(IDoctorsRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _localizer = localizer;
         }
 
         public async Task<Result<ReadDoctorDTO>> CreateAsync(CreateDoctorDTO doctorDTO, CancellationToken token)
