@@ -1,7 +1,7 @@
 ﻿using Application.Coordinator.Document;
 using Application.DTO.ResultDTO;
-using Application.MongoCQ.MongoResultCQ.Command;
 using Application.MongoCQ.MongoResultCQ.Query;
+using Domain.Roles;
 using Infrastructure.PageSettings;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -22,7 +22,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = Role.DocAndRecept)]
         public async Task<ActionResult> GetAllResults([FromQuery] PageInfo pageInfo, CancellationToken token)
         {
             var query = new MongoGetAllResultsQuery(pageInfo);
@@ -32,6 +32,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = Role.All)]
         public async Task<ActionResult> GetResultById(string id, CancellationToken token)
         {
             var query = new MongoGetByIdResultQuery(id);
@@ -41,6 +42,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Role.DocAndRecept)]
         public async Task<ActionResult> CreateResult([FromBody] CreateResultDTO resultDTO, CancellationToken token)
         {
             var coordinator = new CreateDocumentCoordinatorCommand(resultDTO);
@@ -50,6 +52,7 @@ namespace Presentation.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = Role.DocAndRecept)]
         public async Task<ActionResult> DeleteResult(string id, CancellationToken token)
         {
             var command = new DeleteDocumentCoordinatorCommand(id);
@@ -58,7 +61,8 @@ namespace Presentation.Controllers
             return Ok(result);
         }
 
-        [HttpPut("{id}")]//думаем
+        [HttpPut("{id}")]
+        [Authorize(Roles = Role.DocAndRecept)]
         public async Task<ActionResult> UpdateResult(
             string id, [FromBody] UpdateResultDTO updatedResultDTO, CancellationToken token)
         {

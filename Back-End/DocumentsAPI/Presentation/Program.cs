@@ -1,7 +1,6 @@
 using Presentation.Extensions;
 using Infrastructure.Extension;
 using Application.Extension;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -28,11 +27,6 @@ builder.Services.AddApplicationLayer();
 var app = builder.Build();
 
 app.UseApplicationSettings(builder.Environment);
-
-app.MapGet("users/me", (ClaimsPrincipal claimsPrincipal) =>
-{
-    return claimsPrincipal.Claims.ToDictionary(c => c.Type, c => c.Value);
-}).RequireAuthorization();
 
 app.MapControllers();
 

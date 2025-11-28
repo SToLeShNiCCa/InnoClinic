@@ -3,6 +3,7 @@ using Application.DTO;
 using Application.DTO.Requests;
 using Application.DTO.Response;
 using Application.MongoCQ.MongoPhotoCQ.Query;
+using Domain.Roles;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = Role.All)]
         public async Task<ActionResult<PhotoDTO>> GetPhoto(string id, CancellationToken token)
         {
             var query = new MongoGetByIdPhotoQuery(id);
@@ -30,6 +32,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPost("upload")]
+        [Authorize(Roles = Role.Receptionist)]
         public async Task<ActionResult<PhotoResponse>> UploadPhoto(
             [FromForm] UploadPhotoRequest request, CancellationToken token)
         {
@@ -40,6 +43,7 @@ namespace Presentation.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = Role.Receptionist)]
         public async Task<ActionResult> DeletePhoto(string id,CancellationToken token)
         {
             var coordinator = new DeletePhotoCoordinatorCommand(id);
