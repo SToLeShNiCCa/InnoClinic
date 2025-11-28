@@ -5,13 +5,27 @@ using Application;
 using Infrastructure.DBSettings;
 using Presentation.Extensions;
 using Application.Localization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-/*builder.AddServiceDefaults();*/
 builder.Configuration
     .AddJsonFile("appsettings.json")
     .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true);
+
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(o =>
+    {
+        o.RequireHttpsMetadata = false;
+        o.Audience = builder.Configuration["Authentication:Audience"];
+        o.MetadataAddress = builder.Configuration["Authentication:MetadataAddress"]!;
+        o.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidIssuer = builder.Configuration["Authentication:ValidIssuer"]
+        };
+    });
 
 builder.Services.AddLocalization(options =>
 {
@@ -20,19 +34,14 @@ builder.Services.AddLocalization(options =>
 
 builder.Services.Configure<DataBaseSettings>(builder.Configuration.GetSection(nameof(DataBaseSettings)));
 
-//builder.Services.BindSettings();
-
 builder.Services.AddPresentation();
 builder.Services.AddInfrastructureLayer();
 builder.Services.AddApplicationLayer();
 
 var app = builder.Build();
 
-
 LangHelper.ChangeLanguage("de");
 Console.WriteLine($"{LangHelper.GetString("Doctor")} {LangHelper.GetString("Not Found")}");
-
-/*app.MapDefaultEndpoints();*/
 
 if (app.Environment.IsDevelopment())
 {
@@ -46,8 +55,6 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<ProfilesContext>();
     db.Database.Migrate();
 }
-
-    //app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
