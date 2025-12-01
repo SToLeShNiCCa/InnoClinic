@@ -4,11 +4,11 @@ on:
   push:
     branches: [dev]
     paths:
-      - 'ProfilesAPI/**'
+      - 'Back-End/ProfilesAPI/**'
   
   pull_request:
     paths:
-      - 'ProfilesAPI/**'
+      - 'Back-End/ProfilesAPI/**'
     branches: [dev]
     
 jobs:
