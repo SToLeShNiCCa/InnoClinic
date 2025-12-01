@@ -6,7 +6,8 @@ on:
       - 'ProfilesAPI/**'
     branches: 
     - dev
-    - 'Feature/profiles api'
+    - 'Feature/ProfilesAPI'
+    - master
     
 jobs:
   build:
