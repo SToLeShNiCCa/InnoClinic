@@ -1,0 +1,24 @@
+name: Build ProfilesAPI
+
+on:
+  pull_request:
+    paths:
+      - 'ProfilesAPI/**'
+    branches: 
+    - dev
+    - 'Feature/ProfilesAPI'
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+        
+    - name: Build ProfilesAPI
+      run: dotnet build "ProfilesAPI/ProfilesAPI.csproj" --configuration Release
