@@ -3,9 +3,13 @@ name: Build ServicesAPI
 on:
   push:
     branches: ["dev"]
+    paths:
+    - 'ServicesAPI/**'
   
   pull_request:
     branches: ["dev"]
+    paths:
+    - 'ServicesAPI/**'
   workflow_dispatch:
   
 jobs:
