@@ -1,12 +1,10 @@
 ﻿using Application.DTO.Doctors;
 using Application.Services.Interfaces;
-using Domain.DBServices.Models;
 using Domain.DBServices.Models.PaginationModel;
 using Domain.Roles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Extensions;
-using System.Reflection;
 
 namespace Presentation.Controllers
 {

@@ -1,4 +1,7 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 namespace Presentation.Extensions
@@ -7,12 +10,26 @@ namespace Presentation.Extensions
     {
         public static IServiceCollection AddPresentation(this IServiceCollection services, IConfiguration configuration)
         {
+            return services
+                .AddSwaggerGenWithAuth(configuration)
+                .AddAuth(configuration)
+                .AddController()
+                .AddMapper();
+        }
+
+        private static IServiceCollection AddController(this IServiceCollection services)
+        {
             services.AddControllers();
-            services.AddOpenApi();
             services.AddSwaggerGen();
+
+            return services;
+        }
+
+        private static IServiceCollection AddMapper(this IServiceCollection services)
+        {
             services.AddAutoMapper(cfg => { }, Assembly.GetExecutingAssembly());
 
-            return services.AddSwaggerGenWithAuth(configuration);
+            return services;
         }
 
         private static IServiceCollection AddSwaggerGenWithAuth(this IServiceCollection services, 
@@ -56,6 +73,25 @@ namespace Presentation.Extensions
          };
                 o.AddSecurityRequirement(securityRequirement);
             });
+
+            return services;
+        }
+
+        private static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAuthorization();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(o =>
+                {
+                    o.RequireHttpsMetadata = false;
+                    o.Audience = configuration["Authentication:Audience"];
+                    o.MetadataAddress = configuration["Authentication:MetadataAddress"]!;
+                    o.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = configuration["Authentication:ValidIssuer"]
+                    };
+                });
 
             return services;
         }
