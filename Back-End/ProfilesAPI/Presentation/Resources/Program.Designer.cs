@@ -61,11 +61,38 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Doctor in not found.
+        ///   Looks up a localized string similar to Doctor.
         /// </summary>
-        public static string DoctorNotFoundMessage {
+        public static string Doctor {
             get {
-                return ResourceManager.GetString("DoctorNotFoundMessage", resourceCulture);
+                return ResourceManager.GetString("Doctor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Found.
+        /// </summary>
+        public static string Not_Found {
+            get {
+                return ResourceManager.GetString("Not Found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Patient.
+        /// </summary>
+        public static string Patient {
+            get {
+                return ResourceManager.GetString("Patient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Receptionist.
+        /// </summary>
+        public static string Receptionist {
+            get {
+                return ResourceManager.GetString("Receptionist", resourceCulture);
             }
         }
     }
