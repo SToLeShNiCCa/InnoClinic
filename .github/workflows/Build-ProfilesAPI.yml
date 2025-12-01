@@ -3,12 +3,8 @@ name: Build ProfilesAPI
 on:
   push:
     branches: [dev]
-    paths:
-      - 'Back-End/ProfilesAPI/**'
   
   pull_request:
-    paths:
-      - 'Back-End/ProfilesAPI/**'
     branches: [dev]
     
 jobs:
