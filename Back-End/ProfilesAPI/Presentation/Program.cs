@@ -3,7 +3,7 @@ using Infrastructure;
 using Presentation.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-//another test for workflow
+//another test for workflo
 builder.Configuration
     .AddJsonFile("appsettings.json")
     .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true);
