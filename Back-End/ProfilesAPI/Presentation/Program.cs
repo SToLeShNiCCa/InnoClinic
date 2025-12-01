@@ -3,7 +3,7 @@ using Infrastructure;
 using Presentation.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-//i have rewrote action. let's test...it doesn't work......
+//i have rewrote action. let's test...it doesn't work....
 builder.Configuration
     .AddJsonFile("appsettings.json")
     .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true);
