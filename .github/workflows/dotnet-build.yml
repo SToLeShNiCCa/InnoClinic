@@ -29,4 +29,4 @@ jobs:
       run: dotnet restore
       
     - name: Build
-      run: dotnet build "Presentation" --no-restore
+      run: dotnet build "ProfilesAPI" --no-restore
