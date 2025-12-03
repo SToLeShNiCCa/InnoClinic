@@ -25,6 +25,7 @@ namespace Infrastructure.Extensions
 
             return services;
         }
+
         private static IServiceCollection AddRepository(this IServiceCollection services)
         {
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();

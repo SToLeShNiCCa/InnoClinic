@@ -12,7 +12,7 @@ namespace Presentation.Extensions
             return app
                 .UseSwagger(environment)
                 .ProgramConfigurations()
-                .UseMigrations(environment);
+                .UseMigrations();
         }
         private static IApplicationBuilder UseSwagger(this IApplicationBuilder app, IWebHostEnvironment environment)
         {
@@ -34,8 +34,7 @@ namespace Presentation.Extensions
             return app;
         }
 
-        private static IApplicationBuilder UseMigrations(
-            this IApplicationBuilder app, IWebHostEnvironment environment)
+        private static IApplicationBuilder UseMigrations(this IApplicationBuilder app)
         {
             using var scope = app.ApplicationServices.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<AppointmentDbContext>();
