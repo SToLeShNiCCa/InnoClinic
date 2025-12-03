@@ -22,7 +22,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = Role.DocAndRecept)]
+        [Authorize(Roles = Role.Stuff)]
         public async Task<ActionResult> GetAllResults([FromQuery] PageInfo pageInfo, CancellationToken token)
         {
             var query = new MongoGetAllResultsQuery(pageInfo);
@@ -42,7 +42,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = Role.DocAndRecept)]
+        [Authorize(Roles = Role.Stuff)]
         public async Task<ActionResult> CreateResult([FromBody] CreateResultDTO resultDTO, CancellationToken token)
         {
             var coordinator = new CreateDocumentCoordinatorCommand(resultDTO);
@@ -52,7 +52,7 @@ namespace Presentation.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = Role.DocAndRecept)]
+        [Authorize(Roles = Role.Stuff)]
         public async Task<ActionResult> DeleteResult(string id, CancellationToken token)
         {
             var command = new DeleteDocumentCoordinatorCommand(id);
@@ -62,7 +62,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = Role.DocAndRecept)]
+        [Authorize(Roles = Role.Stuff)]
         public async Task<ActionResult> UpdateResult(
             string id, [FromBody] UpdateResultDTO updatedResultDTO, CancellationToken token)
         {
