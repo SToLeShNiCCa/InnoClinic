@@ -1,4 +1,6 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 namespace Presentation.Extension
@@ -8,7 +10,9 @@ namespace Presentation.Extension
         public static IServiceCollection AddProgramServices(this IServiceCollection service, IConfiguration configuration)
         {
             return service
-                .ProgramServices().AddSwaggerGenWithAuth(configuration);
+                .ProgramServices()
+                .JwtHandler(configuration)
+                .AddSwaggerGenWithAuth(configuration);
         }
 
         private static IServiceCollection ProgramServices(this IServiceCollection service)
@@ -19,6 +23,24 @@ namespace Presentation.Extension
             service.AddAutoMapper(cfg => { }, Assembly.GetExecutingAssembly());
 
             return service;
+        }
+
+        private static IServiceCollection JwtHandler(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAuthorization();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(o =>
+                {
+                    o.RequireHttpsMetadata = false;
+                    o.Audience = configuration["Authentication:Audience"];
+                    o.MetadataAddress = configuration["Authentication:MetadataAddress"]!;
+                    o.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = configuration["Authentication:ValidIssuer"]
+                    };
+                });
+
+            return services;
         }
 
         private static IServiceCollection AddSwaggerGenWithAuth(this IServiceCollection services,
