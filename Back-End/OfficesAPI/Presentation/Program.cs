@@ -9,7 +9,7 @@ builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("D
 
 builder.Services.AddInfrastructureLayer();
 builder.Services.AddApplicationLayer();
-builder.Services.AddProgramServices();
+builder.Services.AddProgramServices(builder.Configuration);
 
 var app = builder.Build();
 

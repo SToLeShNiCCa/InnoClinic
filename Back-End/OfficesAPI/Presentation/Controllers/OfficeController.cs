@@ -1,6 +1,8 @@
 ﻿using Application.DTO;
 using Application.Services.Interface;
 using Domain.Models.PageModels;
+using Domain.Roles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Extensions;
 
@@ -11,36 +13,46 @@ namespace Presentation.Controllers
     public class OfficeController : ControllerBase
     {
         private readonly IOfficeService _officeService;
+
         public OfficeController(IOfficeService service)
         {
             _officeService = service;
         }
 
         [HttpGet]
+        [Authorize(Roles = Role.All)]
         public async Task<ActionResult> GetAllAsync([FromQuery] PageInfo pageInfo)
         {
             var result = await _officeService.GetAllAsync(pageInfo);
             return result.ToActionResult();
         }
+
         [HttpGet("{id}")]
+        [Authorize(Roles = Role.All)]
         public async Task<ActionResult> GetById(string id)
         {
             var result = await _officeService.GetByIdAsync(id);
             return result.ToActionResult();
         }
+
         [HttpPost]
+        [Authorize(Roles = Role.Receptionist)]
         public async Task<ActionResult> CreateAsync(CreateOfficeDTO dto)
         {
             var result = await _officeService.CreateAsync(dto);
             return result.ToActionResult();
         }
+
         [HttpPut("{id}")]
+        [Authorize(Roles = Role.Receptionist)]
         public async Task<ActionResult> UpdateAsync(string id, UpdateOfficeDTO dto)
         {
             var result = await _officeService.Update(id, dto);
             return result.ToActionResult();
         }
+
         [HttpDelete("{id}")]
+        [Authorize(Roles = Role.Receptionist)]
         public async Task<ActionResult> RemoveAsync(string id)
         {
             var result = await _officeService.RemoveAsync(id);
