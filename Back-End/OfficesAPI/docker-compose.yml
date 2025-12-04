@@ -26,7 +26,7 @@ services:
       - DatabaseSettings__DatabaseName=OfficesAPI
       - DatabaseSettings__OfficesCollectionName=Offices
     ports:
-      - "8080:8080"
+      - "8080"
     depends_on:
       - mongodb
     networks:
