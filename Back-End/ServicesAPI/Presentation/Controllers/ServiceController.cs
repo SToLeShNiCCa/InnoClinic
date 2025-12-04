@@ -1,6 +1,8 @@
 ﻿using Application.DTO.ServiceDTO;
 using Application.Services.Interfaces;
 using Domain.Models.PageModels;
+using Domain.Roles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Extension;
 
@@ -18,6 +20,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = Role.All)]
         public async Task<IActionResult> GetAllServices([FromQuery] PageInfo pageInfo, CancellationToken token)
         {
             var result = await _service.GetAllAsync(pageInfo, token);
@@ -26,6 +29,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize(Roles = Role.All)]
         public async Task<IActionResult> GetServiceById(int id, CancellationToken token)
         {
             var result = await _service.GetByIdAsync(id, token);
@@ -34,6 +38,7 @@ namespace Presentation.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = Role.Receptionist)]
         public async Task<IActionResult> DeleteService(int id, CancellationToken token)
         {
             var result = await _service.DeleteAsync(id, token);
@@ -42,6 +47,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Role.Receptionist)]
         public async Task<IActionResult> CreateService(CreateServiceDTO serviceDTO, CancellationToken token)
         {
             var result = await _service.CreateAsync(serviceDTO, token);
@@ -50,6 +56,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPut("{id:int}")]
+        [Authorize(Roles = Role.Receptionist)]
         public async Task<IActionResult> UpdateService(int id, UpdateServiceDTO serviceDTO, CancellationToken token)
         {
             var result = await _service.UpdateAsync(id, serviceDTO, token);
