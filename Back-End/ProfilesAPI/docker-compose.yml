@@ -23,7 +23,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:7054
-      - DatabaseSettings__ConnectionString=Server=ProfilesSqlServer;Database=ProfilesAPI;User Id=sa;Password=Strong!Passw0rd;TrustServerCertificate=True;
+      - DatabaseSettings__ConnectionString=Server=ProfilesSqlServer;Database=ProfilesAPI;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
     ports:
       - "5236:7054"
     depends_on:
