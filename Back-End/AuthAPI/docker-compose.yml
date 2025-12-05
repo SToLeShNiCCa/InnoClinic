@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:latest
@@ -5,6 +7,7 @@ services:
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=dev-file
     ports:
       - "8080:8080"
     volumes:
@@ -16,10 +19,16 @@ services:
     build:
       context: ./Presentation
       dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
     ports:
-      - "5000:80"
+      - "5000:5000"
     depends_on:
       - keycloak
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
 volumes:
   keycloak_data:
