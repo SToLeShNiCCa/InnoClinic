@@ -1,30 +1,47 @@
 version: '3.8'
 
 services:
-  presentation:
-    build:
-      context: .
-      dockerfile: Presentation/Dockerfile
-    ports:
-      - "8085:8080"
-      - "8086:8081"
-    env_file:
-    - .env
-    depends_on:
-      - postgres
-    restart: unless-stopped
-
   postgres:
-    image: postgres:15
+    image: postgres:15-alpine
+    container_name: AppointmentDb
     environment:
-      - POSTGRES_DB=AppointmentAPI
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      POSTGRES_DB: AppointmentDB
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
+    networks:
+      - appointment-network
+
+  appointment-api:
+    build:
+      context: .
+      dockerfile: Presentation/Dockerfile
+    image: appointment-api:latest
+    container_name: AppointmentAPI
+    depends_on:
+      - postgres
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=AppointmentDB;Username=admin;Password=password"  # <-- ??? ??????????!
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://+:8080;https://+:8081"
+    ports:
+      - "8080"
+      - "8081"
+    volumes:
+      - ./logs:/app/logs
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    restart: unless-stopped
+    networks:
+      - appointment-network
+
+networks:
+  appointment-network:
+    driver: bridge
 
 volumes:
   postgres_data:
