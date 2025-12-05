@@ -1,25 +1,21 @@
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:latest
-    container_name: keycloak
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
     ports:
       - "8080:8080"
-    volumes:
-      - keycloak_data:/opt/keycloak/data
     command: ["start-dev"]
 
   presentation:
-    image: ${DOCKER_REGISTRY}presentation
     build:
-      context: ./Presentation
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: Presentation/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
     ports:
-      - "5000:80"
+      - "5000:5000"
     depends_on:
       - keycloak
-
-volumes:
-  keycloak_data:
