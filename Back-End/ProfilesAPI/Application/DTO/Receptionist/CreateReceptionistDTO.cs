@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.DTO
+﻿namespace Application.DTO.Receptionist
 {
     /// <summary>
     /// Data Transfer Object (DTO) for Receptionist entity.
     /// </summary>
-    public class DTOReceptionist
+    public class CreateReceptionistDTO
     {
         /// <summary>
         /// Receptionist's first name.

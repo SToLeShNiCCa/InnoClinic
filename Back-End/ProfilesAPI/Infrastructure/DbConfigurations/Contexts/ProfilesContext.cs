@@ -1,5 +1,6 @@
 ﻿using Domain.DBServices.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace Infrastructure.DbConfigurations.Contexts
 {
@@ -34,6 +35,8 @@ namespace Infrastructure.DbConfigurations.Contexts
         /// <param name="modelBuilder">Class which give opportunity for set up tables settings</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Localication под конец мб доделать и подумать
+            //Exception Middleware
             base.OnModelCreating(modelBuilder);
         }
     }
