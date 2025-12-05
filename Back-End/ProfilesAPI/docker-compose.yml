@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  sqlserver:
+  ProfilesSqlServer:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
+    container_name: ProfilesSqlServer
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=YourStrong!Passw0rd
@@ -22,12 +22,12 @@ services:
     container_name: profiles-api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:8080
-      - DatabaseSettings__ConnectionString=Server=sqlserver;Database=ProfilesAPI;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+      - ASPNETCORE_URLS=http://+:7054
+      - DatabaseSettings__ConnectionString=Server=ProfilesSqlServer;Database=ProfilesAPI;User Id=sa;Password=Strong!Passw0rd;TrustServerCertificate=True;
     ports:
-      - "8080"
+      - "5236:7054"
     depends_on:
-      - sqlserver
+      - ProfilesSqlServer
     restart: unless-stopped
 
 volumes:
