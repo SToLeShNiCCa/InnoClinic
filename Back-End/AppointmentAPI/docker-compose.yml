@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  postgres:
+  AppointmentDb:
     image: postgres:15-alpine
     container_name: AppointmentDb
     environment:
@@ -23,14 +23,13 @@ services:
     image: appointment-api:latest
     container_name: AppointmentAPI
     depends_on:
-      - postgres
+      - AppointmentDb
     environment:
-      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=AppointmentDB;Username=admin;Password=password"  # <-- ??? ??????????!
+      ConnectionStrings__DefaultConnection: "Host=AppointmentDb;Port=5432;Database=AppointmentDB;Username=admin;Password=password"
       ASPNETCORE_ENVIRONMENT: "Development"
-      ASPNETCORE_URLS: "http://+:8080;https://+:8081"
+      ASPNETCORE_URLS: "http://+:5018;https://+:7014"
     ports:
-      - "8080"
-      - "8081"
+      - "5018:5018"
     volumes:
       - ./logs:/app/logs
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
