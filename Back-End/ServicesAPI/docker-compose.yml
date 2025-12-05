@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  sqlserver:
+  ServicesSqlServer:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
+    container_name: ServicesSqlServer
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=Strong!Passw0rd
@@ -22,12 +22,12 @@ services:
     container_name: services-api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:8080
-      - DatabaseSettings__ConnectionString=Server=sqlserver;Database=ServicesAPI;User Id=sa;Password=Strong!Passw0rd;TrustServerCertificate=True;
+      - ASPNETCORE_URLS=http://+:7006
+      - DatabaseSettings__ConnectionString=Server=ServicesSqlServer;Database=ServicesAPI;User Id=sa;Password=Strong!Passw0rd;TrustServerCertificate=True;
     ports:
-      - "8080"
+      - "5071:7006"
     depends_on:
-      - sqlserver
+      - ServicesSqlServer
     restart: unless-stopped
 
 volumes:
