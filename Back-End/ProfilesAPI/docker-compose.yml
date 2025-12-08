@@ -25,7 +25,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:7054
-      - DatabaseSettings__ConnectionString=Server=ProfilesSqlServer;Database=ProfilesAPI;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+      - Authentication__MetadataAddress=http://keycloak:8080/realms/KeyCloackAuth/.well-known/openid-configuration
+      - Authentication__ValidIssuer=http://127.0.0.1:8080/realms/KeyCloackAuth
+      - Authentication__Audience=account
+      - Authentication__RequireHttpsMetadata=false DatabaseSettings__ConnectionString=Server=ProfilesSqlServer;Database=ProfilesAPI;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
     ports:
       - "5236:7054"
     depends_on:
