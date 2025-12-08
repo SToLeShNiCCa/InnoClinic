@@ -29,6 +29,13 @@ services:
     depends_on:
       - ProfilesSqlServer
     restart: unless-stopped
+    networks:
+      - KeyCloackNetwork
 
 volumes:
   sqlserver_data:
+  
+networks:
+  KeyCloackNetwork:
+    external: true
+    name: "KeyCloackNetwork"
