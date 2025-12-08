@@ -79,7 +79,7 @@ namespace Presentation.Extensions
 
         private static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddAuthorization();
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(o =>
@@ -89,9 +89,14 @@ namespace Presentation.Extensions
                     o.MetadataAddress = configuration["Authentication:MetadataAddress"]!;
                     o.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidIssuer = configuration["Authentication:ValidIssuer"]
+                        ValidateIssuer = true,
+                        ValidIssuer = configuration["Authentication:ValidIssuer"],
+                        ValidateAudience = true,
+                        ValidAudience = configuration["Authentication:Audience"],
+                        ValidateLifetime = true
                     };
                 });
+            services.AddAuthorization();
 
             return services;
         }

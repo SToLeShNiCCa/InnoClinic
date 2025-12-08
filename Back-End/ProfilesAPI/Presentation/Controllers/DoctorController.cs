@@ -38,39 +38,6 @@ namespace Presentation.Controllers
             return result.ToActionResult();
         }
 
-        [HttpGet("test-keycloak")]
-        public async Task<IActionResult> TestKeycloak()
-        {
-            using var httpClient = new HttpClient();
-
-            try
-            {
-                // Проверьте доступность метаданных
-                var metadataResponse = await httpClient.GetStringAsync("http://127.0.0.1:8080/realms/KeyCloackAuth/.well-known/openid-configuration");
-                Console.WriteLine("Metadata доступны!");
-
-                // Проверьте доступность ключей
-                var keysResponse = await httpClient.GetStringAsync("http://127.0.0.1:8080/realms/KeyCloackAuth/protocol/openid-connect/certs");
-                Console.WriteLine("Ключи доступны!");
-
-                return Ok(new
-                {
-                    Success = true,
-                    Metadata = metadataResponse.Length > 0,
-                    Keys = keysResponse.Length > 0
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new
-                {
-                    Success = false,
-                    Error = ex.Message,
-                    Details = ex.ToString()
-                });
-            }
-        }
-
         /// <summary>
         /// Gets a doctor by their unique identifier.
         /// </summary>
