@@ -25,6 +25,7 @@ namespace Presentation.Extensions
 
         private static IApplicationBuilder AddAuth(this IApplicationBuilder app)
         {
+            app.UseAuthentication();
             app.UseAuthorization();
 
             return app;
