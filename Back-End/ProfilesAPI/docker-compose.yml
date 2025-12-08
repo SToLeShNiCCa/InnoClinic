@@ -1,6 +1,18 @@
 version: '3.8'
 
 services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    ports:
+      - "8080:8080"
+    command: ["start-dev"]
+    networks:
+      - KeyCloakNetwork 
+
   ProfilesSqlServer:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: ProfilesSqlServer
@@ -32,6 +44,7 @@ services:
     ports:
       - "5236:7054"
     depends_on:
+      - keycloak
       - ProfilesSqlServer
     restart: unless-stopped
     networks:
