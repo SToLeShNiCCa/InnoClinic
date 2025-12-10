@@ -37,7 +37,6 @@
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\Migrations.MSSQL\Migrations.MSSQL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

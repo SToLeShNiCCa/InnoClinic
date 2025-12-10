@@ -1,7 +1,8 @@
 ﻿using Application.DTO.Patients;
 using Application.Services.Interfaces;
-using Domain.DBServices.Models;
 using Domain.DBServices.Models.PaginationModel;
+using Domain.Roles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Extensions;
 
@@ -26,6 +27,7 @@ namespace Presentation.Controllers
         /// </summary>
         /// <returns>Patient's list.</returns>
         [HttpGet]
+        [Authorize(Roles = Role.Staff)]
         public async Task<ActionResult> GetAll([FromQuery] PageInfo pageInfo, CancellationToken token) 
         {
             var result =  await _service.GetAllAsync(pageInfo, token);
@@ -39,6 +41,7 @@ namespace Presentation.Controllers
         /// <param name="id">Unique identifier.</param>
         /// <returns>Patient object.</returns>
         [HttpGet("{id}")]
+        [Authorize(Roles = Role.Staff)]
         public async Task<ActionResult> GetById(int id, CancellationToken token)
         {
             var result = await _service.GetByIdAsync(id, token);
@@ -52,6 +55,7 @@ namespace Presentation.Controllers
         /// <param name="dto">Patient's DTO</param>
         /// <returns>Proof that patient was created(REST).</returns>
         [HttpPost]
+        [Authorize(Roles = Role.Receptionist)]
         public async Task<ActionResult> Create(CreatePatientDTO dto, CancellationToken token)
         {
             var result = await _service.CreateAsync(dto,token);
@@ -65,6 +69,7 @@ namespace Presentation.Controllers
         /// <param name="dto">Patient's DTO.</param>
         /// <returns></returns>
         [HttpPut("{id:int}")]
+        [Authorize(Roles = Role.Receptionist)]
         public async Task<ActionResult> Update(int id, UpdatePatientDTO dto, CancellationToken token)
         {
             var result = await _service.UpdateAsync(id, dto, token);
@@ -78,6 +83,7 @@ namespace Presentation.Controllers
         /// <param name="id">Unique identifier.</param>
         /// <returns></returns>
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = Role.Receptionist)]
         public async Task<ActionResult> Delete(int id, CancellationToken token)
         {
             var result = await _service.DeleteAsync(id, token);

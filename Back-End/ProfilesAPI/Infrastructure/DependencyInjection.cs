@@ -1,5 +1,4 @@
 ﻿using Infrastructure.DbConfigurations.Contexts;
-using Infrastructure.DBContextFactory;
 using Infrastructure.DBSettings;
 using Infrastructure.Repositories.Implementations;
 using Infrastructure.Repositories.Interfaces;
@@ -36,7 +35,7 @@ public static class DependencyInjection
         var dbSettings = services.BuildServiceProvider().GetRequiredService<IOptions<DataBaseSettings>>().Value;
 
         services.AddDbContext<ProfilesContext>(builder => builder
-               .UseSqlServer(dbSettings.ConnectionString, op => op.MigrationsAssembly(typeof(ProfilesContextFactory).Assembly)));
+               .UseSqlServer(dbSettings.ConnectionString, op => op.MigrationsAssembly(typeof(ProfilesContext).Assembly)));
 
         return services;
     }
