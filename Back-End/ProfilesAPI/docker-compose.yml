@@ -12,8 +12,6 @@ services:
       - "1433:1433"
     volumes:
       - sqlserver_data:/var/opt/mssql
-    networks:
-      - KeyCloackNetwork
     restart: unless-stopped
 
   presentation:
@@ -24,10 +22,10 @@ services:
     container_name: profiles-api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:7054
+      - ASPNETCORE_URLS=http://+:80
       - DatabaseSettings__ConnectionString=Server=ProfilesSqlServer;Database=ProfilesAPI;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
     ports:
-      - "5236:7054"
+      - "5236:80"
     depends_on:
       - ProfilesSqlServer
     restart: unless-stopped
