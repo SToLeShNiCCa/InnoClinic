@@ -28,4 +28,4 @@ services:
 networks:
   KeyCloakNetwork:
     driver: bridge
-    name: "KeyCloackNetwork"
+    name: "KeyCloakNetwork"
