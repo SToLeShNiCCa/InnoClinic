@@ -14,7 +14,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
     networks:
-      - appointment-network
+      - KeyCloakNetwork
 
   appointment-api:
     build:
@@ -27,20 +27,20 @@ services:
     environment:
       ConnectionStrings__DefaultConnection: "Host=AppointmentDb;Port=5432;Database=AppointmentDB;Username=admin;Password=password"
       ASPNETCORE_ENVIRONMENT: "Development"
-      ASPNETCORE_URLS: "http://+:5018;https://+:7014"
+      ASPNETCORE_URLS: "http://+:80"
     ports:
-      - "5018:5018"
+      - "5018:80"
     volumes:
       - ./logs:/app/logs
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     restart: unless-stopped
     networks:
-      - appointment-network
+      - KeyCloakNetwork
 
 networks:
-  appointment-network:
-    driver: bridge
+  KeyCloakNetwork:
+    external: true
 
 volumes:
   postgres_data:
