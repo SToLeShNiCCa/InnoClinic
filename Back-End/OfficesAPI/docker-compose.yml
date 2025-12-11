@@ -9,7 +9,7 @@ services:
     volumes:
       - mongodb_data:/data/db
     networks:
-      - app-network
+      - KeyCloakNetwork
     restart: unless-stopped
     command: mongod --bind_ip_all
 
@@ -21,21 +21,22 @@ services:
     container_name: offices-api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:7180
+      - ASPNETCORE_URLS=http://+:80
       - DatabaseSettings__ConnectionString=mongodb://OfficesMongoDb:27017
       - DatabaseSettings__DatabaseName=OfficesAPI
       - DatabaseSettings__OfficesCollectionName=Offices
     ports:
-      - "5235:7180"
+      - "5235:80"
     depends_on:
       - OfficesMongoDb
     networks:
-      - app-network
+      - KeyCloakNetwork
     restart: unless-stopped
 
 networks:
-  app-network:
-    driver: bridge
+  KeyCloakNetwork:
+    external: true
 
 volumes:
   mongodb_data:
+  
