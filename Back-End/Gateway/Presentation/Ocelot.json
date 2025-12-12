@@ -1,0 +1,16 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "gateway/doctors",
+      "DownstreamPathTemplate": "/doctors",
+      "UpstreamHttpMethod": ["GET"],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5236
+        }
+      ]
+    }
+  ]
+}

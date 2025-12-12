@@ -1,5 +1,10 @@
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddJsonFile("Ocelot.json", optional: false, reloadOnChange: true);
+builder.Services.AddOcelot();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -17,6 +22,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+await app.UseOcelot();
 
 app.MapControllers();
 
