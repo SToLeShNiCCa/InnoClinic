@@ -1,0 +1,15 @@
+services:
+  presentation:
+    image: ${DOCKER_REGISTRY-}presentation
+    build:
+      context: .
+      dockerfile: Presentation/Dockerfile
+    container_name: Gateway
+    ports:
+      - "5052:80"
+    networks:
+      - KeyCloakNetwork
+
+networks:
+    KeyCloakNetwork:
+        external: true

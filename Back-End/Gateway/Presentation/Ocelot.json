@@ -1,8 +1,8 @@
 {
   "Routes": [
     {
-      "UpstreamPathTemplate": "gateway/doctors",
-      "DownstreamPathTemplate": "api/Doctor",
+      "UpstreamPathTemplate": "/gateway/doctors",
+      "DownstreamPathTemplate": "/api/Doctor",
       "UpstreamHttpMethod": ["GET"],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
