@@ -23,12 +23,12 @@ namespace Infrastructure.Repository.Implementation
             _officeCollection = mongoDatabase.GetCollection<Office>(
                 settings.Value.OfficesCollectionName);
         }
-        public async Task CreateAsync(Office newOffice)
+        public async Task CreateAsync(Office newOffice, CancellationToken token)
         {
             await _officeCollection.InsertOneAsync(newOffice);
         }
 
-        public async Task<PaginatedResult<Office>> GetAllAsync(PageInfo pageInfo)
+        public async Task<PaginatedResult<Office>> GetAllAsync(PageInfo pageInfo, CancellationToken token)
         {
             var totalRecords = await _officeCollection.CountDocumentsAsync(_ => true);
 
@@ -36,7 +36,7 @@ namespace Infrastructure.Repository.Implementation
                 .Find(_ => true)
                 .Skip((pageInfo.Page - 1)* pageInfo.ItemsPerPage)
                 .Limit(pageInfo.ItemsPerPage)
-                .ToListAsync();
+                .ToListAsync(token);
 
             return new PaginatedResult<Office>
                 (
@@ -47,17 +47,17 @@ namespace Infrastructure.Repository.Implementation
                 );
         }
 
-        public async Task<Office?> GetByIdAsync(string id)
+        public async Task<Office?> GetByIdAsync(string id, CancellationToken token)
         {
-            return await _officeCollection.Find(p => p.Id == id).FirstOrDefaultAsync();
+            return await _officeCollection.Find(p => p.Id == id).FirstOrDefaultAsync(token);
         }
 
-        public async Task RemoveAsync(string id)
+        public async Task RemoveAsync(string id, CancellationToken token)
         {
-            await _officeCollection.DeleteOneAsync(p => p.Id == id);
+            await _officeCollection.DeleteOneAsync(p => p.Id == id, token);
         }
 
-        public async Task Update(string id, Office updatedOffice)
+        public async Task Update(string id, Office updatedOffice, CancellationToken token)
         {
             await _officeCollection.ReplaceOneAsync(p => p.Id == id, updatedOffice);
         }

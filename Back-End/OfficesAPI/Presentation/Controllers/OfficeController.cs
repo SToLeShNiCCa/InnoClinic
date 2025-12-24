@@ -21,41 +21,41 @@ namespace Presentation.Controllers
 
         [HttpGet]
         [Authorize(Roles = Role.All)]
-        public async Task<ActionResult> GetAllAsync([FromQuery] PageInfo pageInfo)
+        public async Task<ActionResult> GetAllAsync([FromQuery] PageInfo pageInfo, CancellationToken token)
         {
-            var result = await _officeService.GetAllAsync(pageInfo);
+            var result = await _officeService.GetAllAsync(pageInfo, token);
             return result.ToActionResult();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = Role.All)]
-        public async Task<ActionResult> GetById(string id)
+        public async Task<ActionResult> GetById(string id, CancellationToken token)
         {
-            var result = await _officeService.GetByIdAsync(id);
+            var result = await _officeService.GetByIdAsync(id, token);
             return result.ToActionResult();
         }
 
         [HttpPost]
         [Authorize(Roles = Role.Receptionist)]
-        public async Task<ActionResult> CreateAsync(CreateOfficeDTO dto)
+        public async Task<ActionResult> CreateAsync(CreateOfficeDTO dto, CancellationToken token)
         {
-            var result = await _officeService.CreateAsync(dto);
+            var result = await _officeService.CreateAsync(dto, token);
             return result.ToActionResult();
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = Role.Receptionist)]
-        public async Task<ActionResult> UpdateAsync(string id, UpdateOfficeDTO dto)
+        public async Task<ActionResult> UpdateAsync(string id, UpdateOfficeDTO dto, CancellationToken token)
         {
-            var result = await _officeService.Update(id, dto);
+            var result = await _officeService.Update(id, dto, token);
             return result.ToActionResult();
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = Role.Receptionist)]
-        public async Task<ActionResult> RemoveAsync(string id)
+        public async Task<ActionResult> RemoveAsync(string id, CancellationToken token)
         {
-            var result = await _officeService.RemoveAsync(id);
+            var result = await _officeService.RemoveAsync(id, token);
             return result.ToActionResult();
         }
     }
