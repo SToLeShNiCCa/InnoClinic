@@ -2,6 +2,7 @@
 {
     public class ReadPatientDTO
     {
+        public int Id { get; set; }
         /// <summary>
         /// Patient's first name.
         /// </summary>

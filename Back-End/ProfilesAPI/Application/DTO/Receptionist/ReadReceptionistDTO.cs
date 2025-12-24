@@ -2,6 +2,8 @@
 {
     public class ReadReceptionistDTO
     {
+        public int Id { get; set; }
+
         /// <summary>
         /// Receptionist's first name.
         /// </summary>
